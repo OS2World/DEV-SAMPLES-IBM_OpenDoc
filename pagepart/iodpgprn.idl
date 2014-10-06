@@ -1,0 +1,97 @@
+//#====START_GENERATED_PROLOG======================================
+//#
+//#
+//#   COMPONENT_NAME: odpagepart
+//#
+//#   CLASSES: none
+//#
+//#   ORIGINS: 82,27
+//#
+//#
+//#   (C) COPYRIGHT International Business Machines Corp. 1995,1996
+//#   All Rights Reserved
+//#   Licensed Materials - Property of IBM
+//#   US Government Users Restricted Rights - Use, duplication or
+//#   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//#   	
+//#   IBM DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING
+//#   ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+//#   PURPOSE. IN NO EVENT SHALL IBM BE LIABLE FOR ANY SPECIAL, INDIRECT OR
+//#   CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF
+//#   USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+//#   OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
+//#   OR PERFORMANCE OF THIS SOFTWARE.
+//#
+//#====END_GENERATED_PROLOG========================================
+//#
+//   @(#) 1.4 com/src/samples/pagepart/iodpgprn.idl, odpagepart, od96os2, odos29712d 11/1/96 08:53:23 [3/21/97 17:49:00]
+
+
+#ifndef _IODPGPRN_
+#define _IODPGPRN_
+
+#ifndef _IODPRINT_
+#include <iodprint.idl>
+#endif
+
+
+
+//======================================================================
+// Classes defined in this interface
+//======================================================================
+
+interface  PageLayoutPrintExtension;
+
+
+//======================================================================
+// PageLayoutPrintExtension Implementation
+//======================================================================
+
+interface PageLayoutPrintExtension: ODPrintExtension
+{
+   void SetPageDimensions(in long width, in long height);
+   void SetNumberOfPages(in short count);
+   void InitializeForPageLayout(in ODPart base, in char *pszQueueName, in long HorzOffset, in long VertOffset, in long TotalPageWidth, in long TotalPageHeight, in short NumberOfPages);
+
+
+#ifdef __SOMIDL__
+  implementation
+  {
+        dllname = "IODPage.dll";
+        functionprefix = PageLayoutPrintExtension;
+        majorversion = 1;
+        minorversion = 0;
+
+        override:
+              DisplayPrintDialog,
+              SetPrintingFrameShape,
+              PrintPages;
+
+        releaseorder:
+              SetPageDimensions,
+              SetNumberOfPages,
+              InitializeForPageLayout;
+
+        //=======================================
+        // ODPrintExtension Instance Variables
+        //=======================================
+
+              short      NumberOfPages;   // Total pages in document
+                
+              long       HorzPageOffset;  // LeftPageOffset
+              long       VertPageOffset;  // BottomPageOffset on OS/2,
+                                          // TopPageOffset on WIN32
+                                                   
+              long       TotalPageWidth;  // LeftPageOffset+PageWidth+RightPageOffset
+              long       TotalPageHeight; // BottomPageOffset+PageHeight+TopPageOffset
+
+  }; // end implementation section
+
+#endif //__SOMIDL__
+
+}; // end interface definition
+
+
+#endif //_IODPGPRN_
+
+

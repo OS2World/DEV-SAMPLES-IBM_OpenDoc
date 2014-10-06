@@ -1,0 +1,32 @@
+
+Description:
+
+    The Text Import/Export part handler is a sample part which demonstrates
+    subclassing from the BaseContainer part handler without using the
+    ContentObject model.  It allows the user to import Ascii text files
+    and to export them back.
+
+
+Files:
+
+    textpart.rme   --  This file.
+    textpart.idl   --  SOM IDL definitions for SOM class TextPart and
+                       meta class M_TextPart.
+    textpart.cpp   --  Class member functions
+    textutil.cpp   --  Platform specific utility functions
+    textpart.h     --  Header file
+    textpart.msg   --  English message file
+    textutil.ico   --  Icon file
+    textpart.def   --  Library definitions
+    makefile       --  NMAKE file (To build part run: nmake)
+
+Usage:
+
+    The Text Import/Export part handler has 2 menu items in addition to
+    those inherited from BaseContainer, Import and Export.  The Import item
+    will allow you to select a text file from disk and import it to the
+    docshell.  It will only allow one text file to be imported.  Once text
+    is imported, it can be saved to an OpenDoc document and restored from it.
+    The Export item will allow you to write the text file back out to disk.
+
+

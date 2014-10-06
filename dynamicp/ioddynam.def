@@ -1,0 +1,11 @@
+;  @(#) 1.4 os2/src/samples/dynamicp/ioddynam.def, oddynamicpart, od96os2, odos29712d 97/03/21 17:45:22 (96/09/18 12:36:01)
+LIBRARY ioddynam INITINSTANCE TERMINSTANCE
+DESCRIPTION 'DynamicPart Class Library'
+DATA MULTIPLE NONSHARED LOADONCALL
+EXPORTS
+   DynamicPartCClassData
+   DynamicPartClassData
+   DynamicPartNewClass
+   M_DynamicPartCClassData
+   M_DynamicPartClassData
+   M_DynamicPartNewClass

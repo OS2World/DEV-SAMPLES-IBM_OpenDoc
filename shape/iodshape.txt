@@ -1,0 +1,55 @@
+Description:
+
+    The Shape part handler is a sample which demonstrates the use of
+    irregular shapes and the implementation of Undo/Redo. Because it 
+    subclasses from SimplePart, it also supports any actions that the
+    Simple part handles.
+
+    When embedding a Shape part in a document it is displayed as a
+    color filled circle/ellipse. The user may change the color of the
+    circle by selecting a menu. This action may be undone or redone as 
+    the user desires.
+
+Files:
+
+    iodshape.rme   --  This file.
+    iodshape.idl   --  SOM IDL definitions for SOM class ShapePart and
+                       meta class M_ShapePart.
+    iodshape.cpp   --  Class member functions
+    iodshape.h     --  Header file
+    iodshape.msg   --  English message file
+    iodshape.ico   --  Icon file
+    iodshapd.ico   --  Document Icon File (NT only)
+    iodshapt.ico   --  Editor Icon File (NT only)
+    iodshaps.ico   --  Stationery Icon File (NT only)
+    iodshape.rc    --  Resource file
+    iodshape.def   --  Library definitions
+    makefile       --  NMAKE file (To build part run: nmake)
+
+Usage:
+
+    When displayed as a root frame, the Shape part draws on the entire
+    frame taking a rectangular shape. When embedded in a document, however,
+    the Shape part is displayed as a color filled circle/ellipse.
+    The frame itself is rectangular but the used shape (where the part
+    draws) is circular. The frame region outside of the circle is 
+    transparent and will not react to mouse events. Click on the colored
+    area to activate the part.
+
+    When active, Shape part adds a Background Color menu item to the
+    Edit menu. Use this menu item to change the color of the
+    shape drawn. It will display a color dialog from which the
+    new color can be chosen.
+
+    After the color of the Shape part has been changed once,
+    an Undo Background Color menu item will appear in the Edit menu. 
+    Choose this menu to undo the color change action. When the 
+    color is changed multiple times, choosing this menu will undo one
+    change of color at a time. This menu item will be disabled when 
+    there are no more color changes to undo.
+
+    After a color change has been undone once, a Redo Background Color
+    menu item will appear in the Edit menu. Use this item to redo an 
+    undone color change. This item will be disabled when there are no
+    more undone color changes to redo.
+

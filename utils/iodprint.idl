@@ -1,0 +1,161 @@
+//#====START_GENERATED_PROLOG======================================
+//#
+//#
+//#   COMPONENT_NAME: odpagepart
+//#
+//#   CLASSES: none
+//#
+//#   ORIGINS: 82,27
+//#
+//#
+//#   (C) COPYRIGHT International Business Machines Corp. 1995,1996
+//#   All Rights Reserved
+//#   Licensed Materials - Property of IBM
+//#   US Government Users Restricted Rights - Use, duplication or
+//#   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//#   	
+//#   IBM DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING
+//#   ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+//#   PURPOSE. IN NO EVENT SHALL IBM BE LIABLE FOR ANY SPECIAL, INDIRECT OR
+//#   CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF
+//#   USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+//#   OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
+//#   OR PERFORMANCE OF THIS SOFTWARE.
+//#
+//#====END_GENERATED_PROLOG========================================
+//#
+/* @(#) 1.8 com/src/samples/utils/iodprint.idl, odpagepart, od96os2, odos29712d 3/7/97 13:08:51 [3/21/97 17:48:15] */
+
+
+#ifndef _IODPRINT_
+#define _IODPRINT_
+
+#ifndef _EXTENSN_
+#include <extensn.idl>
+#endif
+
+
+
+//======================================================================
+// Classes defined in this interface
+//======================================================================
+
+interface  ODPrintExtension;
+
+
+//======================================================================
+// Classes used by this interface
+//======================================================================
+
+interface ODPart;
+interface ODFrame;
+interface ODFacet;
+interface ODShape;
+
+
+//======================================================================
+// Type definitions used by this interface
+//======================================================================
+
+typedef unsigned long HMODULE;
+typedef somToken      PRNINFO;
+
+#ifdef _PLATFORM_OS2_
+typedef somToken      PPRNLISTINFO;
+typedef somToken      PHCINFO;
+#endif
+
+#ifdef _PLATFORM_WIN32_
+typedef somToken      LPPRINTDLG;
+#endif
+
+
+//======================================================================
+// ODPrintExtension Implementation
+//======================================================================
+
+interface ODPrintExtension : ODExtension
+{
+   ODBoolean PrinterSetup(in HWND hwnd);
+   ODBoolean PrintDocument(in ODFrame frame, in ODEventData event);
+   ODBoolean HandlePrinting(in ODFrame frame, in char *pszQueueName);
+   ODBoolean DisplayPrintDialog(in PRNINFO *pPi, in HWND hwnd, in char *pszTitle);
+   ODBoolean PrintPages(in ODFrame frame, in PRNINFO *pPI);
+   ODFacet BeginPrinting(in ODFrame rootFrame, in PRNINFO *pPI);
+   ODBoolean PrintPage(in ODFacet prFacet, in PRNINFO *pPI, in ODBoolean lastPage);
+   void EndPrinting(in ODFacet prFacet);
+   ODShape SetPrintingFrameShape(in ODFrame frame);
+   void QuerySelectedPrinter(in char *pszQueueName, in ODBoolean displayErrors);
+   HWND GetPrintProgressHWND();
+   short GetCurrentPrinterForm();
+   char* GetCurrentPrinterQueuePhysicalName();
+   char* GetCurrentPrinterQueueDisplayName();
+   long GetCurrentPrinterPageWidth();
+   long GetCurrentPrinterPageHeight();
+   long GetCurrentPrinterClipWidth();
+   long GetCurrentPrinterClipHeight();
+   HMODULE GetResourceHandle();
+   void Initialize(in ODPart base, in char *pszQueueName);
+
+
+#ifdef __SOMIDL__
+  implementation
+  {
+        dllname = "IODUtils.dll";
+        functionprefix = ODPrintExtension;
+        majorversion = 1;
+        minorversion = 0;
+
+        override:
+                somInit,
+                somUninit;
+
+        releaseorder:
+                PrinterSetup,
+                PrintDocument,
+                HandlePrinting,
+                DisplayPrintDialog,
+                PrintPages,
+                BeginPrinting,
+                PrintPage,
+                EndPrinting,
+                SetPrintingFrameShape,
+                QuerySelectedPrinter,
+                GetPrintProgressHWND,
+                GetCurrentPrinterForm,
+                GetCurrentPrinterQueuePhysicalName,
+                GetCurrentPrinterQueueDisplayName,
+                GetCurrentPrinterPageWidth,
+                GetCurrentPrinterPageHeight,
+                GetCurrentPrinterClipWidth,
+                GetCurrentPrinterClipHeight,
+                GetResourceHandle,
+                Initialize;
+
+        //=======================================
+        // ODPrintExtension Instance Variables
+        //=======================================
+
+#ifdef _PLATFORM_OS2_
+                PPRNLISTINFO       ppliInfo;       // Printer Stuff
+                PHCINFO            pForms;         // Forms supported by printer
+                long               cForms;         // Number of Forms supported
+#endif
+
+#ifdef _PLATFORM_WIN32_
+                LPPRINTDLG         printDlg;       // Printer Stuff
+#endif
+
+                HWND               PrintHWND;      // Print progress dialog handle
+
+  }; // end implementation section
+
+#endif //__SOMIDL__
+
+}; // end interface definition
+
+
+#endif //_IODPRINT_
+
+
+

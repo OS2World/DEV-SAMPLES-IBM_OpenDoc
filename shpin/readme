@@ -1,0 +1,23 @@
+This is a sample shell plugin that installs a dispatch module to log
+incoming events from the window system and mark the document dirty
+when the document window is moved. The event is logged in the message
+logging utility provided by OpenDoc. This shell plugin sample is written 
+for Windows and OS/2 platforms only. The sample contains the following 
+files:
+
+  ioddspm.h - includes the mapping of the message id to descriptive
+              message text to be logged
+  ioddspm.idl - idl description for sample dispatch monitor
+  ioddspm.cpp - source code for the sample dispatch monitor to log
+                incoming events and mark the document dirty when 
+                moving the document window
+  iodshpin.cpp - source code containing the entry point for shell
+                 plugin
+
+To build the sample shell plugin library, simply run 'buildme' to execute 
+the command file located in this directory. The buildme file does the 
+following:
+
+- run the SampEnv command file if it is not already run
+- build the sample shell plugin library
+- set ODSHELLPLUGINS environment variable for Windows platform

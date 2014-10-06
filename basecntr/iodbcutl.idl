@@ -1,0 +1,160 @@
+//#====START_GENERATED_PROLOG======================================
+//#
+//#
+//#   COMPONENT_NAME: odbasecntr
+//#
+//#   CLASSES: none
+//#
+//#   ORIGINS: 82,27
+//#
+//#
+//#   (C) COPYRIGHT International Business Machines Corp. 1995,1996
+//#   All Rights Reserved
+//#   Licensed Materials - Property of IBM
+//#   US Government Users Restricted Rights - Use, duplication or
+//#   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//#   	
+//#   IBM DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING
+//#   ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+//#   PURPOSE. IN NO EVENT SHALL IBM BE LIABLE FOR ANY SPECIAL, INDIRECT OR
+//#   CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF
+//#   USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+//#   OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
+//#   OR PERFORMANCE OF THIS SOFTWARE.
+//#
+//#====END_GENERATED_PROLOG========================================
+//#
+/* @(#) 1.4 com/src/samples/basecntr/iodbcutl.idl, odbasepart, od96os2, odos29712d 10/30/96 23:28:19 [3/21/97 17:45:29] */
+
+//#====START_GENERATED_PROLOG======================================
+//#
+//#
+//#
+//#   IBM DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING
+//#   ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+//#   PURPOSE. IN NO EVENT SHALL IBM BE LIABLE FOR ANY SPECIAL, INDIRECT OR
+//#   CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF
+//#   USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+//#   OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
+//#   OR PERFORMANCE OF THIS SOFTWARE.
+//#
+//#====END_GENERATED_PROLOG========================================
+//#
+
+#ifndef _ALinkedList_
+#define _ALinkedList_
+
+#ifndef _ODOBJECT_
+#include "ODObject.idl"
+#endif
+
+
+//==============================================================================
+// Classes defined in this interface
+//==============================================================================
+
+interface ALink;
+interface ALinkedList;
+
+//==============================================================================
+// typedefs
+//==============================================================================
+
+//==============================================================================
+// ALink
+//==============================================================================
+
+
+interface ALink :  ODObject
+{
+
+
+  ODPtr Content ();
+
+  ALink Next();
+
+#ifdef __PRIVATE__
+
+  void  setContent(in ODPtr content);
+
+  void  setNext   (in ALink next);
+
+#endif
+
+#ifdef __SOMIDL__
+  implementation
+  {
+     majorversion = 1; minorversion = 0;
+     functionprefix = ALink;
+
+     override:
+        somInit,
+        somUninit;
+
+     releaseorder:
+        Content,
+        Next,
+#ifdef __PRIVATE__
+        setContent,
+        setNext;
+#else
+        dummy2,
+        dummy1;
+#endif
+
+        ODPtr fContent;
+        ALink fNext;
+
+  };
+#endif //# __SOMIDL__
+};
+
+
+interface ALinkedList :  ODObject
+{
+  ALink First ();
+
+  void AddFirst (in ODPtr content);
+
+  void AddLast (in ODPtr content);
+
+  void Remove (in ODPtr content);
+
+  void RemoveAll ();
+
+  ODBoolean Contains (in ODPtr content);
+
+  ODULong Count ();
+
+
+#ifdef __SOMIDL__
+  implementation
+  {
+     majorversion = 1; minorversion = 0;
+     functionprefix = ALinkedList;
+
+     override:
+        somInit,
+        somUninit;
+
+     releaseorder:
+        First,
+        AddFirst,
+        AddLast,
+        Remove,
+        RemoveAll,
+        Contains,
+        Count;
+
+        ALink fRoot;
+
+  };
+#endif //# __SOMIDL__
+};
+
+
+
+#endif // _ALinkedList_ (end of file)
+
+
+

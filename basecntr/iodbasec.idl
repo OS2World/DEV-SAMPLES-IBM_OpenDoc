@@ -1,0 +1,655 @@
+/* @(#) 1.65 com/src/samples/basecntr/iodbasec.idl, odbasepart, od96os2, odos29712d 3/17/97 20:16:01 [3/21/97 17:45:28] */
+
+//#====START_GENERATED_PROLOG======================================
+//#
+//#
+//#   COMPONENT_NAME: odsamples
+//#
+//#   CLASSES: none
+//#
+//#   ORIGINS: 82,27
+//#
+//#
+//#   (C) COPYRIGHT International Business Machines Corp. 1995,1996
+//#   All Rights Reserved
+//#   Licensed Materials - Property of IBM
+//#   US Government Users Restricted Rights - Use, duplication or
+//#   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//#
+//#   IBM DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING
+//#   ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+//#   PURPOSE. IN NO EVENT SHALL IBM BE LIABLE FOR ANY SPECIAL, INDIRECT OR
+//#   CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF
+//#   USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+//#   OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
+//#   OR PERFORMANCE OF THIS SOFTWARE.
+//#
+//#====END_GENERATED_PROLOG========================================
+//#
+
+
+#ifndef _CONTAINER_
+#define _CONTAINER_
+
+#ifndef _PART_
+#include "Part.idl"
+#endif
+
+
+//======================================================================
+// Classes used by this interface
+//======================================================================
+
+interface  ODDraft;
+interface  ODEmbeddedFramesIterator;
+interface  ODFacet;
+interface  ODFrame;
+interface  ODMenuBar;
+interface  ODFocusSet;
+interface  ODShape;
+interface  ODStorageUnit;
+interface  ODSession;
+interface  ODWindow;
+interface  ODPlatformMenu;
+interface  ODTransform;
+interface  M_BaseContainer;
+
+interface  ODPrintExtension;
+interface  ODScrollExtension;
+interface  BCPartSettingsExt;
+
+interface ContentObject;
+interface ContentFrame;
+interface ALinkedList;
+
+#ifdef __PRIVATE__
+
+
+
+//======================================================================
+// Implementation Types
+//======================================================================
+
+typedef somToken  COLORREF;
+
+typedef somToken  Widget;
+typedef somToken  Display;
+typedef somToken  XtAppContext;
+typedef somToken  Cursor;
+typedef somToken  XSetWindowAttributes;
+typedef somToken  BC_MOUSETRACK;
+typedef somToken  FrameListHeader;
+typedef somToken  HIconView;
+typedef somToken  HThumbView;
+typedef somToken  HResModule;
+typedef somToken  BC_RECTDRAWTYPE;
+
+#endif          // end of __PRIVATE__
+
+typedef somToken  BCCloneInfo;
+
+
+
+//======================================================================
+// BaseContainer Implementation
+//======================================================================
+
+#define kODErrCannotInitializePart 3001
+
+interface BaseContainer : ODPart
+{
+        void      Initialize(in ODPart  partWrapper);
+
+        ODBoolean HandleMouseUp(           in ODEventData   event,
+                                           in ODFrame       frame,
+                                           in ODFacet       facet,
+                                           in ODEventInfo   eventInfo  );
+
+        ODBoolean HandleMouseDown(         in ODEventData   event,
+                                           in ODFrame       frame,
+                                           in ODFacet       facet,
+                                           in ODEventInfo   eventInfo  );
+
+         ODBoolean HandleMouseMove(        in ODEventData   event,
+                                           in ODFrame       frame,
+                                           in ODFacet       facet,
+                                           in ODEventInfo   eventInfo  );
+
+        ODBoolean HandleMouseClick(        in ODEventData   event,
+                                           in ODFrame       frame,
+                                           in ODFacet       facet,
+                                           in ODEventInfo   eventInfo  );
+
+        ODBoolean HandleMouseMotionStart(  in ODEventData   event,
+                                           in ODFrame       frame,
+                                           in ODFacet       facet,
+                                           in ODEventInfo   eventInfo  );
+
+        ODBoolean HandleMouseMotionEnd(    in ODEventData   event,
+                                           in ODFrame       frame,
+                                           in ODFacet       facet,
+                                           in ODEventInfo   eventInfo  );
+
+        ODBoolean HandleMouseMotionLBDown( in ODEventData   event,
+                                           in ODFrame       frame,
+                                           in ODFacet       facet,
+                                           in ODEventInfo   eventInfo  );
+
+        ODBoolean HandleMenuEvent(         in ODFrame       frame,
+                                           in ODEventData   event      );
+
+        ODBoolean HandleKeyEvent(          in ODEventData   event,
+                                           in ODFrame       frame,
+                                           in ODFacet       facet,
+                                           in ODEventInfo   eventInfo  );
+
+        ODBoolean HandleColorChange(       in ODFrame       frame);
+
+        ODBoolean ActivateFrame(           in ODFrame       frame      );
+
+        ODWindow  MakeWindow(              in ODFrame       frame      );
+
+        void      SelectContentObject(      in ContentObject  contentObject);
+
+        void      DeleteSelection(  in ODULong type);
+
+        void      CopySelection(          in ODCloneKind   cutORcopy  );
+
+        void      PasteSelection(         in ODFacet       facet,
+                                           in ODPoint       toWhere    );
+
+        void      PasteSelectionAs(       in ODFacet       facet,
+                                           in ODPoint       toWhere    );
+
+        void      SelectAll();
+
+        void      DeselectAll();
+
+        void      CutSelection();
+
+        void      CompleteMoveOperation(   in ODFrame       containingFrame,
+                                           in ODPoint  offset);
+
+        void      CompleteResizeOperation( in ContentObject contentObject,
+                                           in ODULong       resizeFlags,
+                                           in ODPoint       winPoint,
+                                           in ODFacet       facet);
+
+        void      MoveSelectionToFront();
+
+        void      MoveSelectionToBack();
+
+        void      WriteKindInfo(           in ODStorageUnit  toSU);
+
+        void      WriteContents(           in ODStorageUnit  toSU,
+                                           in BCCloneInfo    *cloneInfo,
+                                           in ODULong  writeKind);
+
+        ODBoolean ReadKindInfo(            in ODStorageUnit   fromSU);
+
+        void      ReadContents(            in ODStorageUnit   fromSU,
+                                           in BCCloneInfo     *cloneInfo,
+                                           in ODULong  readKind);
+
+        void GetContentObjectFromObjType(  in ODULong objType,
+                                           in ContentObject *contentObject);
+
+        ALinkedList   GetEmbeddedObjects();
+
+        ALinkedList   GetSelectedObjects();
+
+        ALinkedList   GetDisplayFrames();
+
+        ODMenuBar GetMenuBar();
+
+        COLORREF GetBackgroundColor();
+
+        void SetBackgroundColor (in COLORREF color);
+
+        void      InstallMenuItems(        in ODMenuBar     menuBar);
+
+        ODBoolean DrawSelectionBorder(     in ODFacet facet,
+                                           in ODShape invalidShape);
+        ODBoolean DrawContents(     in ODFacet facet,
+                                    in ODShape invalidShape);
+
+        void      WriteIconToSU (in ODStorageUnit    toSU);
+
+        ODBoolean SetupPrinting (in ODFrame frame, in ODEventData event);
+
+        ODBoolean HandlePrinting (in ODFrame frame, in ODEventData event);
+
+        ODBoolean HandleScrollEvent (in ODFrame frame, in ODEventData event);
+
+        ODExtension CreatePrintExtension();
+
+        ODExtension CreateScrollExtension();
+
+        ODExtension CreateSettingsExtension();
+
+        ODExtension EnablePrinting (in ODBoolean enable,
+                                    in char *printerQueueName);
+
+        ODExtension EnableScrolling (in ODBoolean enable,
+                                     in long totalWidth,
+                                     in long totalHeight);
+
+        void      SetScrollableDimensions( in ODFrame frame,
+                                           in long totalWidth,
+                                           in long totalHeight);
+
+        ContentObject Embed(                   in ODType        part,
+                                           in ODFrame       containingFrame,
+                                           in ODTransform   newEmbedTransform );
+
+        void      ChangeNotification ( in ODULong reason,
+                                           in ODFrame frame,
+                                           in ContentObject content,
+                                           in ODBoolean bPropagate,
+                                           in ODUpdateID updateID);
+
+        COLORREF  ColorSelection(          in COLORREF      origColor,
+                                           in long          color      );
+
+        void      AbortMouseTracking (in ODFrame frame);
+
+        unsigned short   GetMouseMode ();
+
+
+        void      StartDrag(               in ODEventData   event,
+                                           in ODFrame       embeddedFrame,
+                                           in ODFacet       facet,
+                                           in ODEventInfo   eventInfo,
+                                           in ODCloneKind   cloneKind  );
+
+        void      ActivatingWindow(        in ODFrame       frame      );
+        void      DeactivatingWindow(      in ODFrame       frame      );
+        void      InvertDragHilite(        in ODFacet       facet      );
+
+        ODBoolean CreateSelectionBorderShapes(in ContentObject contentObject   );
+        ODBoolean GetBorderShapes(         in ODRect  rect,
+                                           in ODShape selectShape,
+                                           in ODShape cornerShape,
+                                           in ODShape edgeShape        );
+        void      BuildEmbedMenu(          in ODPlatformMenuItem *mi   );
+
+
+        ODFrame   ReadSingleFrame(         in ODFacet       myFacet,
+                                           in ODStorageUnit fromSU,
+                                           in ODCloneKind   cloneKind,
+                                           in ODPoint       refPoint);
+
+        void      WriteSingleFrame(        in ODFrame       embeddedFrame,
+                                           in ODStorageUnit toSU,
+                                           in ODCloneKind   cloneKind);
+
+        void      UpdateContentExtent(     in ODFrame       myFrame);
+
+        ODPlatformMenu CreateNewMenu(      in ODMenuBar     menuBar,
+                                           in ODULong       menuID);
+
+        void      CreateMenuItemFromCatalog (
+                                           in   ODMenuBar           menuBar,
+                                           in   ODULong             parentMenuID,
+                                           in   ODPlatformMenuItem  menuItem,
+                                           in   ODPtr               nlsCat,
+                                           in   ODULong             msgSet,
+                                           in   ODULong             msgID,
+                                           in   string              defaultText);
+
+        void      SetMenuItemTextFromCatalog (
+                                           in   ODMenuBar           menuBar,
+                                           in   ODULong             parentMenuID,
+                                           in   ODPlatformMenuItem  menuItem,
+                                           in   ODPtr               nlsCat,
+                                           in   ODULong             msgSet,
+                                           in   ODULong             msgID,
+                                           in   string              defaultText);
+
+        void      AddSeparatorToMenu (     in   ODMenuBar       menuBar,
+                                           in   ODULong         menuID,
+                                           in   ODULong         separatorID);
+
+        void      WriteFrameListHeader(    in ODStorageUnit  toSU,
+                                           in BCCloneInfo    *cloneInfo,
+                                           in ODULong  writeKind,
+                                           in ALinkedList objectList);
+
+        void      ReadFrameListHeader(     in ODStorageUnit   fromSU,
+                                           in BCCloneInfo     *cloneInfo,
+                                           in ODULong  readKind,
+                                           inout FrameListHeader header);
+
+        void      ReleaseFrameListInfo(    in BCCloneInfo     *cloneInfo);
+
+
+        void      AdjustViewTypeShapes(    in ODFrame frame);
+
+        void      SetViewTypeRect(         in ODTypeToken viewType,
+                                           inout ODRect rect);
+
+        void      DrawFrame(               in ODFacet facet,
+                                           in ODShape invalidShape);
+
+        void      DrawIcon(                in ODFacet facet,
+                                           in ODShape invalidShape,
+                                           in ODTypeToken viewType);
+
+        void      DrawThumbnail(           in ODFacet facet,
+                                           in ODShape invalidShape);
+
+        void      CreateIcon(              in ODFacet facet,         
+                                           in ODShape invalidShape,  
+                                           in ODTypeToken viewType);
+
+        void      LoadIconsFromModule(     in string moduleName,
+                                           in long iconID);
+
+        void      FreeResModule();
+
+        void      DrawResizeRectangle(     in ODPoint cursorLocation,
+                                           in BC_RECTDRAWTYPE drawType);
+
+
+#ifdef __SOMIDL__
+  implementation
+        {
+        dllname = "iodbasec.dll";
+        functionprefix = BaseContainer;
+        metaclass      = M_BaseContainer;
+        override:
+                somInit,
+                somUninit,
+                Release,
+                ReleaseAll,
+                Externalize,
+                HasExtension,
+                AcquireExtension,
+                ReleaseExtension,
+                FulfillPromise,
+                DropCompleted,
+                DragEnter,
+                DragWithin,
+                DragLeave,
+                Drop,
+                ContainingPartPropertiesUpdated,
+                AcquireContainingPartProperties,
+                RevealFrame,
+                EmbeddedFrameSpec,
+                CreateEmbeddedFramesIterator,
+                DisplayFrameAdded,
+                DisplayFrameRemoved,
+                DisplayFrameConnected,
+                DisplayFrameClosed,
+                AttachSourceFrame,
+                GeometryChanged,
+                FrameShapeChanged,
+                ViewTypeChanged,
+                PresentationChanged,
+                SequenceChanged,
+                WritePartInfo,
+                ReadPartInfo,
+                ClonePartInfo,
+                Open,
+                RequestEmbeddedFrame,
+                RemoveEmbeddedFrame,
+                RequestFrameShape,
+                UsedShapeChanged,
+                AdjustBorderShape,
+                FacetAdded,
+                FacetRemoved,
+                CanvasChanged,
+                Draw,
+                CanvasUpdated,
+                HighlightChanged,
+                GetPrintResolution,
+                CreateLink,
+                LinkUpdated,
+                RevealLink,
+                EmbeddedFrameUpdated,
+                LinkStatusChanged,
+                BeginRelinquishFocus,
+                CommitRelinquishFocus,
+                AbortRelinquishFocus,
+                FocusAcquired,
+                FocusLost,
+                CloneInto,
+                ExternalizeKinds,
+                ChangeKind,
+                HandleEvent,
+                AdjustMenus,
+                UndoAction,
+                RedoAction,
+                DisposeActionState,
+                WriteActionState,
+                ReadActionState,
+                InitPart,
+                InitPartFromStorage;
+
+        releaseorder:
+                Initialize,
+                HandleMouseUp,
+                HandleMouseDown,
+                HandleMouseMove,
+                HandleMouseClick,
+                HandleMouseMotionStart,
+                HandleMouseMotionEnd,
+                HandleMouseMotionLBDown,
+                HandleMenuEvent,
+                HandleKeyEvent,
+                HandleColorChange,
+                ActivateFrame,
+                MakeWindow,
+                SelectContentObject,
+                CopySelection,
+                PasteSelection,
+                PasteSelectionAs,
+                DeleteSelection,
+                SelectAll,
+                DeselectAll,
+                CutSelection,
+                CompleteMoveOperation,
+                CompleteResizeOperation,
+                MoveSelectionToFront,
+                MoveSelectionToBack,
+                WriteKindInfo,
+                WriteContents,
+                ReadKindInfo,
+                ReadContents,
+                GetContentObjectFromObjType,
+                GetEmbeddedObjects,
+                GetSelectedObjects,
+                GetDisplayFrames,
+                GetMenuBar,
+                GetBackgroundColor,
+                SetBackgroundColor,
+                InstallMenuItems,
+                DrawSelectionBorder,
+                DrawContents,
+                WriteIconToSU,
+                SetupPrinting,
+                HandlePrinting,
+                HandleScrollEvent,
+                CreatePrintExtension,
+                CreateScrollExtension,
+                EnablePrinting,
+                EnableScrolling,
+                SetScrollableDimensions,
+                Embed,
+                ChangeNotification,
+                ColorSelection,
+                AbortMouseTracking,
+                GetMouseMode,
+                StartDrag,
+                ActivatingWindow,
+                DeactivatingWindow,
+                InvertDragHilite,
+                CreateSelectionBorderShapes,
+                GetBorderShapes,
+                BuildEmbedMenu,
+                ReadSingleFrame,
+                WriteSingleFrame,
+                UpdateContentExtent,
+                CreateNewMenu,
+                CreateMenuItemFromCatalog,
+                SetMenuItemTextFromCatalog,
+                AddSeparatorToMenu,
+                WriteFrameListHeader,
+                ReadFrameListHeader,
+                ReleaseFrameListInfo,
+                CreateSettingsExtension,
+                AdjustViewTypeShapes,
+                SetViewTypeRect,
+                DrawFrame,
+                DrawIcon,
+                DrawThumbnail,
+                CreateIcon,
+                LoadIconsFromModule,
+                FreeResModule,
+                DrawResizeRectangle;
+
+
+
+        majorversion = 0;
+        minorversion = 0;
+
+        passthru C_xh_after =
+        ""
+        "#include \"iodbcutl.xh\""
+        "#include \"bcmain.h\""
+        "#include \"iodbcobj.xh\""
+        "";
+
+                ODSession       fSession;
+                ODDragResult    fDropAccepted;
+                ODStorageUnit   fPartSU;
+                ODBoolean       fDirty;
+                ODMenuBar       fMenuBar;
+                ODID            fWindowID;
+                ODPlatformWindow fFrameViewWindow;
+                ODPart          fPartWrapper;
+                ODBoolean       fDraftReadOnly;
+
+                // Focus set
+                ODFocusSet      fFocusSet;
+                ODTypeToken     fSelectionFocus;
+                ODTypeToken     fMenuFocus;
+                ODTypeToken     fKeyFocus;
+                ODTypeToken     fModalFocus;
+                ODTypeToken     fClipboardFocus;
+                ODTypeToken     fMouseFocus;
+                ODTypeToken     fMouseFocusOutside;
+
+                // View type
+                ODTypeToken     fFrameView;
+                ODTypeToken     fLargeIconView;
+                ODTypeToken     fSmallIconView;
+                ODTypeToken     fThumbnailView;
+                ODTypeToken     fMainPresentation;
+
+                // Menu
+                ODPlatformMenu  fEditMenu;
+                ODPlatformMenu  fEmbedMenu;
+                ODPlatformMenu  fColorMenu;
+
+                // Embedded and Display frames list
+                ALinkedList    fDisplayFrames;
+                ALinkedList    fSelectedObjects;
+                ALinkedList    fEmbeddedObjects;
+
+                // Selection Border Shapes
+                ODShape        fSelectShape;
+                ODShape        fCornerHandleShape;
+                ODShape        fEdgeHandleShape;
+
+                // Display related variables
+                ODCanvas        fCanvas;
+                ODBoolean         fNeedToInternalize;
+                COLORREF        fBackgroundColor;
+                short           fRed;                   // color counters
+                short           fGreen;                 // color counters
+                short           fBlue;                  // color counters
+
+                // Embed menu related variables
+                short           fEmbedTableParts;      // # of parts in EmbedTable
+                char **         fEmbedTable;           // dynamically allocated
+                ODType          fPartToEmbed;          // next part handler to be instantiated
+
+                // Mouse mode for tracking edit operations
+                unsigned short  usMouseMode;
+                BC_MOUSETRACK   bcMouseTrack;
+                void            *bcTrackData;
+                void            *moveData;
+                void            *resizeData;
+                void            *lassoData;
+
+                ODPoint         *fMouseStart;
+
+
+                BCPartSettingsExt  fSettingsExt;
+#if     defined(_PLATFORM_UNIX_)
+                Display*           fDisplay;
+                XtAppContext       fAppContext;
+                XSetWindowAttributes fWindowAttributes;
+                Cursor             fCrossHairCursor;
+                Widget             fCanvasWidget;
+
+#elif   defined(_PLATFORM_OS2_)
+                ODPrintExtension   fPrintExt;
+                ODScrollExtension  fScrollExt;
+
+                ODBoolean          fPrintingEnabled;
+                ODBoolean          fScrollingEnabled;
+
+#elif   defined(_PLATFORM_WIN32_)
+                ODPrintExtension   fPrintExt;
+                ODScrollExtension  fScrollExt;
+
+                ODBoolean          fPrintingEnabled;
+                ODBoolean          fScrollingEnabled;
+
+#endif // _PLATFORM_XXX_
+
+                // Variables for viewType support
+                HIconView          hSmallIcon;
+                HIconView          hLargeIcon;
+                HThumbView         hThumbnail;
+                HResModule         hResModule;
+                ODRect             lastFrameRect;
+                ODBoolean          fInFrameNegotiation;
+                ODTypeToken        fPrevViewType;
+#if     defined(_PLATFORM_UNIX_)
+                Widget             iconWidget;
+#endif
+
+
+
+  }; // end implementation section
+
+#endif //__SOMIDL__
+
+}; // end interface definition
+
+
+// ******************************************************************
+
+interface M_BaseContainer : M_ODPart
+{
+
+#ifdef __SOMIDL__
+  implementation
+  {
+    functionprefix = M_BaseContainerPart;
+    override:
+      clsGetODPartHandlerName,
+      clsGetODPartHandlerDisplayName,
+      clsGetODPartKinds,
+      clsGetOLE2ClassId,
+      clsGetWindowsIconFileName;
+  };
+
+#endif  // _SOMIDL__
+};
+
+#endif //_CONTAINER_
+

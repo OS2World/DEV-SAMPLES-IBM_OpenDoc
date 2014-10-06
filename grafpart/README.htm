@@ -1,0 +1,389 @@
+<!-- @(#) 1.7 com/src/samples/grafpart/README.htm, odgrafpart, od96os2, odos29712d 2/7/97 17:42:28 [3/21/97 17:47:55] -->
+<!doctype html public>
+<!--   README for the OpenDoc Graphics Sample Part by Kevin Calman 03/97    -->
+<html>
+<!---------------------------------------------------------------------------->
+<head>
+<img align=right src="iodgraph.gif">
+<title>README for OpenDoc&#174; GrafPart</title>
+<h1>README for
+<br>OpenDoc&#174; Graphics Editor Sample Part</h1>
+</head>
+<!---------------------------------------------------------------------------->
+<hr>
+<h2><a name="toc">Contents</a></h2>
+<dir>
+    <li><a href="#files">Files and their Uses in this Part</a>
+    <ul compact>
+       <li><a href="#files_ship">Files shipped as Source in the Package</a>
+       <li><a href="#files_built">Files shipped as Binary, or Built</a>
+    </ul>
+    <li><a href="#desc">Functional Description of the <strong>GrafPart</strong> Sample</a>
+    <li><a href="#comp">Compiling the <strong>GrafPart</strong> Sample</a>
+    <li><a href="#run">Executing the <strong>GrafPart</strong> Sample</a>
+    <li><a href="#platform">Platform Dependance Issues</a>
+    <li><a href="#bugs"><strong>GrafPart</strong> Known Bugs and Limitations</a>
+</dir>
+<body>
+<!---------------------------------------------------------------------------->
+<hr>
+<h3><a name="files">Files in this part</a></h3>
+<h4><a name="files_ship">Files shipped as Source in the Package</a></h4>
+<p>The following files are shipped in the <strong>OpenDoc</strong> distribution as source,
+and are required to rebuild the <strong>GrafPart</strong> sample (without modification).
+All of the following files are <a href="#platform">platform-independent</a>,
+except as noted.
+<dl compact>
+<dt>src/grafpart/makefile
+    <dd>makefile for the Graphics editor and its content classes (for use with Nmake)
+<dt>src/grafpart/README.htm
+    <dd>HTML document containing directions for use of the <strong>GrafPart</strong> sample part
+        (hypertext version of this file)
+<dt>src/grafpart/README.txt
+    <dd>Text file containing directions for use of the <strong>GrafPart</strong> sample part
+        (flat text version of this file)
+<dt>src/grafpart/iodgraph.gif
+    <dd>Image file of the <strong>GrafPart</strong> editor icon
+<dt>src/grafpart/iodgraph.rc
+    <dd>Resource script file
+<dt>src/grafpart/iodgradc.ico
+    <dd>Source icon for "document" use (platform-specific)
+<dt>src/grafpart/iodgraed.ico
+    <dd>Source icon for "editor" use (platform-specific)
+<dt>src/grafpart/iodgrast.ico
+    <dd>Source icon for "stationery" use (platform-specific)
+<dt>src/grafpart/iodgraph.hpp
+    <dd>Global constants and defines
+<dt>src/grafpart/iodgcomm.cpp
+    <dd>Global common includes and preprocessor instructions
+<dt>src/grafpart/iodgraph.def
+    <dd>Object export definitions (platform-specific)
+<dt>src/grafpart/iodgraph.idl
+    <dd>SOM interface definition for the Graphics editor class
+<dt>src/grafpart/iodgraph.cpp
+    <dd>C++ implementation for the Graphics editor class
+<dt>src/grafpart/iodgfigr.idl
+    <dd>SOM interface definition for a "virtual" class which
+        generically describes 2D figures.
+<dt>src/grafpart/iodgfigr.cpp
+    <dd>C++ implementation of the 'figure' class
+<dt>src/grafpart/iodgpoin.idl
+    <dd>SOM interface definition of a point figure class,
+        which derives from the 'figure' class.
+<dt>src/grafpart/iodgpoin.cpp
+    <dd>C++ implementation of the point class
+<dt>src/grafpart/iodgline.idl
+    <dd>SOM interface definition of a line figure class,
+        which derives from the 'figure' class
+<dt>src/grafpart/iodgline.cpp
+    <dd>C++ implementation of the line class
+<dt>src/grafpart/iodgrect.idl
+    <dd>SOM interface definition of a rectangle figure class,
+        which derives from the 'line' class.
+<dt>src/grafpart/iodgrect.cpp
+    <dd>C++ implementation of the rect class
+<dt>src/grafpart/iodgtext.idl
+    <dd>SOM interface definition of a text figure class,
+        which derives from the 'rect' class.
+<dt>src/grafpart/iodgtext.cpp
+    <dd>C++ implementation of the text class
+<dt>src/grafpart/en_US/iodgraph.msg
+    <dd>NLS message source for the Graphics editor in English for United States
+<dt>src/grafpart/ja_JP/iodgraph.msg
+    <dd>NLS message source for the Graphics editor in Japanese for Japan
+</dl>
+
+<h4><a name="files_built">Files shipped as Binary, or Built</a></h4>
+<p>The following files are shipped in the <strong>OpenDoc</strong> distribution as prebuilt binaries,
+and will be overlayed (or ignored) when the <strong>GrafPart</strong> sample is rebuilt (without modification).
+These binaries were built with the IBM VisualAge for C++ product.
+<dl compact>
+<dt>src/grafpart/iodgraph.RES
+    <dd>Binary resource object for the Graphics editor class
+<dt>src/grafpart/iodgraph.xih
+    <dd>Private C++ language bindings for the Graphics editor class
+<dt>src/grafpart/iodgraph.obj
+    <dd>Binary object for the Graphics editor class
+<dt>src/grafpart/iodgraph.odt
+    <dd>Table of contents for the package file (platform-specific)
+<dt>src/grafpart/iodgfigr.xih
+    <dd>Private C++ language bindings for the 'figure' virtual class
+<dt>src/grafpart/iodgfigr.obj
+    <dd>Binary object for the 'figure' virtual class
+<dt>src/grafpart/iodgpoin.xih
+    <dd>Private C++ language bindings for the 'point' figure class
+<dt>src/grafpart/iodgpoin.obj
+    <dd>Binary object for the 'point' figure class
+<dt>src/grafpart/iodgline.xih
+    <dd>Private C++ language bindings for the 'line' figure class
+<dt>src/grafpart/iodgline.obj
+    <dd>Binary object for the 'line' figure class
+<dt>src/grafpart/iodgrect.xih
+    <dd>Private C++ language bindings for the 'rectangle' figure class
+<dt>src/grafpart/iodgrect.obj
+    <dd>Binary object for the 'rectangle' figure class
+<dt>src/grafpart/iodgtext.xih
+    <dd>Private C++ language bindings for the 'text' figure class
+<dt>src/grafpart/iodgtext.obj
+    <dd>Binary object for the 'text' figure class
+<dt>dll/iodgraph.dll
+    <dd>Dynamic Linked Library for the Graphics editor
+<dt>include/iodgraph.idl
+    <dd>Exported copy of the Graphics editor SOM class definition
+<dt>include/iodgfigr.idl
+    <dd>Exported copy of the 'figure' virtual SOM class definition
+<dt>include/iodgpoin.idl
+    <dd>Exported copy of the 'point' figure SOM class definition
+<dt>include/iodgline.idl
+    <dd>Exported copy of the 'line' figure SOM class definition
+<dt>include/iodgrect.idl
+    <dd>Exported copy of the 'rectangle' figure SOM class definition
+<dt>include/iodgtext.idl
+    <dd>Exported copy of the 'text' figure SOM class definition
+<dt>include/iodgraph.hpp
+    <dd>Exported copy of the global constants and defines
+<dt>include/iodgraph.xh
+    <dd>Public C++ language bindings for the Graphic editor class
+<dt>include/iodgfigr.xh
+    <dd>Public C++ language bindings for the 'figure' virtual class
+<dt>include/iodgpoin.xh
+    <dd>Public C++ language bindings for the 'point' figure class
+<dt>include/iodgline.xh
+    <dd>Public C++ language bindings for the 'line' figure class
+<dt>include/iodgrect.xh
+    <dd>Public C++ language bindings for the 'rectangle' figure class
+<dt>lib/iodgraph.def
+    <dd>Exported copy of the object export definitions (platform-specific)
+<dt>lib/iodgraph.lib
+    <dd>Linked object archive of all class objects
+<dt>lib/iodgraph.exp
+    <dd>Binary export list
+<dt>src/grafpart/en_US/iodgraph.cat
+    <dd>Compiled NLS message catalog for the Graphics editor in English for United States
+<dt>pkg/iodgraph.odz
+    <dd>Install-ready compressed binary-only part install file
+</dl>
+<p>Back to the <a href="#toc">Table of Contents.</a>
+
+<!---------------------------------------------------------------------------->
+<hr><h3><a name="desc">Function Description</a></h3>
+<p><strong>GrafPart</strong> is a sample of <strong>OpenDoc</strong> component software (part),
+which provides basic two-dimensional vector graphics capabilities.
+It is provided to serve as a model which <strong>OpenDoc</strong> part developers
+can use as a basis in designing more sophisticated graphics-related parts,
+as well as to provide an embeddable basic graphic function to the
+shipped set of <strong>GrafPart</strong> sample parts.
+<h4>Inherited Behaviors</h4>
+<p>The <strong>GrafPart</strong> is subclassed from the <strong>BaseContainer</strong>, which in turn, is subclassed from ODPart,
+and thus inherits all <i>part behaviors</i>, such as
+<ul>
+    <li>drag/drop support,
+    <li>persistence,
+    <li>properties,
+    <li>clipboard operations,
+    <li>base menubar,
+    <li>drafts,
+    and
+    <li>printing.
+</ul>
+<p>Due to <strong>GrafPart</strong>'s inheritance from <strong>BaseContainer</strong>,
+it provides a set of <i>container part behaviors</i>,
+such as
+<ul>
+    <li>embedding,
+    <li>selection,
+    <li>activation,
+    <li>non-rectangular frames,
+    and
+    <li>content part
+    <ul compact>
+       <li>Z-order maintenance,
+       and
+       <li>background color manipulation.
+    </ul>
+</ul>
+
+<h4>Inherited Content types</h4>
+<p><strong>GrafPart</strong> will display in its <tt>Embed</tt> menu all the
+part kinds currently registered in the system,
+and allow the user to embed them as in the <strong>BaseContainer</strong>
+
+<h4><a name="desc_int_beh">Intrinsic Behaviors</a></h4>
+<p>The intrinsic content is selectable and can be manipulated
+once selected via keyboard/mouse input or clipboard functions.
+Specific manipulations vary by figure type.
+
+<h4><a name="desc_int_cont">Intrinsic Content types</a></h4>
+<p>In addition to being able to imbed other <strong>OpenDoc</strong> part kinds,
+<strong>GrafPart</strong> may also embed intrinsic content types and manipulate them
+as peers of full <strong>OpenDoc</strong> part kinds.
+Intrinsic contents are instances of a set of classes
+called <i>"figures"</i>, which implement
+basic two-dimensional vector graphic primitives,
+and include:
+<ul>
+    <li>Point
+    <li>Line
+    <li>Rectangle
+    <li>Text*
+</ul>
+With provisions for the user to implement these additional types:
+<ul>
+    <li>Circle
+    <li>Ellipse
+    <li>Polyline
+    <li>Polygon
+    <li>Freehand
+    <li>Image
+</ul>
+<p>* - "Text" is not fully supported first-class implementation at this time, that is,
+the class may be instantiated programmatically (ie., though the scripting interface),
+but is not supported by <strong>GrafPart</strong> GUI, and thus cannot created interactively.
+<p>Back to the <a href="#toc">Table of Contents.</a>
+
+<!---------------------------------------------------------------------------->
+<hr><h3><a name="comp">Compiling the <strong>GrafPart</strong> Sample</a></h3>
+<p>The <strong>GrafPart</strong> binaries are shipped as compiled with
+IBM's VisualAge for C++ compilers on Windows and OS/2 platforms,
+with the nmake macro <tt>'ODDebug'</tt> turned on.
+The <strong>GrafPart</strong> source code also uses a local CPP symbol,
+<tt>'GPDebug'</tt>, to control various debugging functions.
+Specifically, if <strong>GrafPart</strong> is compiled with the
+<tt>GPDebug</tt> CPP symbol defined, the following will occur:
+<dl>
+<dt>Trace messages are activated
+<dd>Each method of the <strong>GrafPart</strong> sample source code contains
+a message that is printed upon invocation, and another upon exit. In addition,
+many methods output various additional messages indicating status and parameter content.
+The output of these messages may be viewed by starting a receiver application,
+such as the <tt>MsgDisp.exe</tt> utility (on Windows platforms),
+or the <tt>PMPrintf.exe</tt> utility (on OS/2 platforms).
+With the appropriate message receiver application running,
+the performance of the <strong>GrafPart</strong> will be impacted,
+more severely with greater volume of embedded content.
+However, normal <strong>OpenDoc</strong> part performance can be regained simply
+by closing the receiver application.
+With the <tt>GPDebug</tt> CPP symbol not defined,
+no messages will be sent, regardless of the presence of a receiver application.
+<dt>NLS catalog function is asserted
+<dd>If NLS catalog function fails, then default string values are used.
+If the <strong>GrafPart</strong> was compiled with the <tt>GPDebug</tt> CPP symbol defined,
+then those default string values will be in <tt>ALL UPPERCASE TEXT</tt>,
+to allow the developer to distinguish the default strings from strings obtained from
+an NLS catalog in the same language ("en_US").
+The strings specifically affect by this feature are the menu items
+which <strong>GrafPart</strong> defines, which are:
+<sl>
+<li>the intrinsic content types in the "Embed" menu,
+and
+<li>the "Refresh screen" item in the "Options" menu.
+</sl>
+<br>With the <tt>GPDebug</tt> CPP symbol not defined,
+The default strings will appear in mixed case, indistinguishable from the
+catalog strings for the locale, en_US.
+In most cases, failure of NLS catalog function is a result of
+bad or missing definition of the LOCALE and NLSPATH environment variables.
+</dl>
+<p>If you wish to recompile the <strong>GrafPart</strong> sample with these functions
+enabled, you must first clear the system of any of the existing <strong>GrafPart</strong>
+binaries. From the <tt>%ODBASE%/samples/src/grafpart</tt> directory, issue the following:
+<xmp>
+Nmake clean
+</xmp>
+The <tt>GPDebug</tt> CPP symbol may be defined in two ways:
+<sl>
+<li>By uncommenting the line (remove the leading "#")
+in the makefile which currently reads:
+<xmp>
+#ExtraCompileOptions    = -DGPDebug
+</xmp>
+<li>By invoking Nmake with an explicit command-line macro definition:
+<xmp>
+Nmake "ExtraCompileOptions    = -DGPDebug"
+</xmp>
+</sl>
+
+
+<p>Back to the <a href="#toc">Table of Contents.</a>
+
+<!---------------------------------------------------------------------------->
+<hr><h3><a name="run">Executing the <strong>GrafPart</strong> Sample</a></h3>
+<p>The <strong>GrafPart</strong> editor may be started in any of the manners
+an <strong>OpenDoc</strong> part may usually be run.
+<p>Adds to two of <strong>BaseContainer</strong>'s main menubar items,
+Embed and Options. In its Embed menu,
+<strong>GrafPart</strong> shows all the  currently registered
+<strong>OpenDoc</strong> part kinds, and then below a menu separator line
+all of the currently implemented intrinsic content types.
+<p>Unlike embedding <strong>OpenDoc</strong> part kinds,
+<strong>GrafPart</strong> intrinsic content types are embedded
+with a drag operation, as follows:
+<ol>
+<li>Select "Embed" from the main menu.
+<li>Select the desired intrinsic type in the pull-down menu, from amongst the
+items listed below the menu separator line.
+<li>Press mouse button 1 in the <strong>GrafPart</strong> content area at the
+first point of the figure.
+<li>Keeping MB1 depressed, drag the mouse to the second point in the desired figure.
+A representation of the figure will appear interactively, "rubberbanding" as you
+drag the mouse.
+<li>Release MB1 at the second point.
+</ol>
+<p>For the "Point" type, you may use the above described method, or
+simply place the cursor where the point is desired and click MB1.
+<p>As an aid to performance tuning and a demonstration vehicle,
+the method of updating the screen during the "rubberbanding" process is user-selectable
+at run-time. In the environment from which DocShell will be started, set an environment
+variable 'GP_REFRESH' to a value between '1' and '3', with the following meanings:
+<dl>
+<dt>GP_REFRESH=1
+<dd>The whole current frame will be invalidated with each pixel of mouse movement.
+This is the most time- and resource-intensive method, but is smoothest performing
+method on systems with the speed to handle it.
+This is the default if the GP_REFRESH environment variable is not set.
+<dt>GP_REFRESH=2
+<dd>Only the shape of the current figure in the current facet will be invalidated
+with each pixel of mouse movement. This is less resource- and computation-intensive,
+but is still a synchronous process.
+<dt>GP_REFRESH=3
+<dd>The shape of the current figure in the current facet will be updated
+with each pixel of mouse movement. This is the least resource- and computation-intensive,
+as it is an asynchronous process, but may produce 'jumpy' feedback performance on slower systems.
+</dl>
+<p>In the Options main menubar, <strong>GrafPart</strong> implements a "Refresh Screen" menu item, which,
+when selected, will immediately perform a invalidation on all frames belonging to that
+<strong>GrafPart</strong> instance, synchronizing them and causing them to redraw their contents. This useful if more than
+one frame exists, or if the content area has become polluted due to a drag operation.
+<p>Back to the <a href="#toc">Table of Contents.</a>
+
+<!---------------------------------------------------------------------------->
+<hr><h3><a name="platform">Platform Dependance Issues</a></h3>
+<p><strong>GrafPart</strong> is written to utilize National Language Support for catalogs. Its proper operation
+for the display of its implemented menu items is dependant on settings of the
+LANG and NLSPATH environment variables.
+<p>Back to the <a href="#toc">Table of Contents.</a>
+
+<!---------------------------------------------------------------------------->
+<hr><h3><a name="bugs"><strong>GrafPart</strong> Known Bugs and Limitations</a></h3>
+<ul>
+<li>Due to NLS dependance, <strong>GrafPart</strong> requires an NLS-compliant compiler. Currently it has only
+been tested with IBM's VisualAge for C++ compilers on Windows and OS/2 platforms.
+<li>No keypress handling.
+<li>Limited available implemented intrinsic content types.
+<li>No editing of intrinsic content types, besides move and resize.
+<li>Intrinsic content types have no user-definable or editable attributes.
+<li>Some possible user scenarios may be confusing, such as attempting
+to embed within the selection threshold of an intrinsic content item.
+<li>Unnecessary screen refreshes under certain conditions.
+</ul>
+<p>Back to the <a href="#toc">Table of Contents.</a>
+
+<!---------------------------------------------------------------------------->
+</body>
+<hr><font size="-1">&#169. 1996 IBM Corporation. All rights reserved.</font>
+<p>Last updated: 2/7/97 17:42:28
+<!-- 07 Nov 1996 KAC -->
+<!-- 07 Feb 1997 KAC -->
+</html>
+<!-- end of file -->
+

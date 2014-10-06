@@ -1,0 +1,12 @@
+; @(#) 1.2 os2/src/samples/clock/iodclock.def, odclockpart, od96os2, odos29712d 9/24/96 17:04:35 [3/21/97 17:47:37]
+LIBRARY iodclock INITINSTANCE TERMINSTANCE
+DESCRIPTION 'Clock Part Class Library'
+DATA MULTIPLE NONSHARED LOADONCALL
+EXPORTS
+   ClockCClassData
+   ClockClassData
+   ClockNewClass
+   M_ClockCClassData
+   M_ClockClassData
+   M_ClockNewClass
+

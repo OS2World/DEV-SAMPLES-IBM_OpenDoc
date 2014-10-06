@@ -1,0 +1,104 @@
+//  @(#)Z 1.12 com/src/samples/basecntr/iodbcitr.idl, odbasepart, od96os2, odos29712d 97/03/21 17:45:28 (96/09/25 15:12:25)
+//#====START_GENERATED_PROLOG======================================
+//#
+//#
+//#   COMPONENT_NAME: odsamples
+//#
+//#   CLASSES: none
+//#
+//#   ORIGINS: 82,27
+//#
+//#
+//#   (C) COPYRIGHT International Business Machines Corp. 1995,1996
+//#   All Rights Reserved
+//#   Licensed Materials - Property of IBM
+//#   US Government Users Restricted Rights - Use, duplication or
+//#   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//#
+//#   IBM DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING
+//#   ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+//#   PURPOSE. IN NO EVENT SHALL IBM BE LIABLE FOR ANY SPECIAL, INDIRECT OR
+//#   CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF
+//#   USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+//#   OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
+//#   OR PERFORMANCE OF THIS SOFTWARE.
+//#
+//#====END_GENERATED_PROLOG========================================
+//#
+// *********************************************************************
+
+
+
+#ifndef _ITERATOR_
+#define _ITERATOR_
+
+#ifndef _EMBFRITR_
+#include "EmbFrItr.idl"
+#endif
+
+
+//======================================================================
+// Classes used by this interface
+//======================================================================
+
+interface  ODFrame;
+interface  ODPart;
+interface  ODEmbeddedFramesIterator;
+interface  ALinkedList;
+interface  ALink;
+
+
+
+//======================================================================
+// BaseContainer Embedded Frames Iterator Implementation
+//======================================================================
+
+interface BCIterator : ODEmbeddedFramesIterator
+{
+
+
+#ifdef __SOMIDL__
+  implementation
+        {
+        dllname = "iodbasec.dll";
+        functionprefix = BCIterator;
+        override:
+                InitEmbeddedFramesIterator,
+                First,
+                Next,
+                IsNotComplete,
+                PartRemoved,
+                CheckValid,
+                IsValid,
+                somUninit;
+
+        majorversion = 0;
+        minorversion = 0;
+
+
+
+#ifdef __PRIVATE__
+
+        passthru C_xih =
+        ""
+        "#include \"ODTypes.h\""
+        "";
+
+                ALinkedList     fLink;               // current link
+                ALink     fNode;               // current link
+
+
+
+#endif //__PRIVATE__
+
+  }; // end implementation section
+
+
+
+#endif //__SOMIDL__
+
+}; // end interface definition
+
+
+
+#endif //_ITERATOR_

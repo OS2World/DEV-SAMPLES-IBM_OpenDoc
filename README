@@ -1,0 +1,112 @@
+
+1) Building OpenDoc Samples is fast and easy.
+-----------------------------------------------------------------------
+
+
+  1) "cd" to the src directory in %ODSRC%
+  2) Type "dir" to see the list of samples.
+  3) "cd" to the directory of your favorite part.
+  4) Issue one of the following commands:
+
+     nmake          - equivalent to 'nmake Idls Hdrs Libs Dlls'
+     nmake Clean    - to erase all generated files.
+     nmake Idl      - to copy the idl file(s) to %ODSRC%\include.
+     nmake Hdr      - to create the header file(s).
+     nmake Lib      - to create the lib file(s).
+     nmake Dll      - to create the dll file(s).
+     nmake ForceRegistry - to force the registration of a part
+                           (parts are only re-registered when their .idl
+                            changes)
+     nmake Pkg      - to build an installable package (a .odz file)
+                      for the part
+
+     Add an "s" to the end a command (e.g. "nmake Cleans")
+     to cause the command to be recursively issued in the subdirectories
+     below the current directory.
+
+
+==> Important Note1: odsomxh.cmd
+
+     Before the first attempt to build the sample parts, you must
+     run odsomxh.cmd (located in %ODBASE%\bin).
+     Failure to run odsomxh could result in parts being
+     built using SOM headers that do not match the SOM 2.1.4
+     runtimes installed with OpenDoc 1.1.
+
+
+==> Important Note2: Compile and link flags
+
+     The compile and link flags include a basic core set of
+     flags.  If you want to build optimized code or debug code
+     you will need to set the compiler specific environment
+     variables.  Here are our suggestions:
+
+       VisualAge Compiler
+        Optimized build
+         set ICC = -O+ -Om-
+         set ILINK = -NOBROWSE
+
+        Debug build
+         set ICC = -Ti+ -DDEBUG
+         set ILINK = -DEBUG
+
+
+==> Important Note3: using your own runtime library
+
+     The nmake files have the additional capability
+     to optionally link in your own runtime library.
+
+     The default is to dynamically link in the compiler's runtime.
+     To link in your own runtime list, call nmake with the
+     LocalRuntimeLibrary macro set to your runtime library list.
+
+     This macro triggers the logic that adjusts the compile and
+     link flags to use your runtime library.
+
+     %ODSRC%\src\runtime gives an example of building a local
+     runtime library based off the description in "Creating
+     Your Own Runtime Library DLLs" in the VisualAge C++
+     Programming Guide. After creating iodrt.dll in
+     %ODSRC%\src\runtime, you could build the IBM Samples, having
+     them linked to the local runtime, by issuing the following
+     nmake command:
+
+	nmake "LocalRuntimeLibrary=%ODSRC%\lib\iodrt.lib %ODSRC%\lib\os2\os2386.lib %CPPMAIN%\lib\CPPOOC3.lib"
+
+
+==> Important Note4: Resource compiler
+
+     If you are having trouble using the resource compiler, one
+     possible source of the problem could be the version of the resource
+     compiler you are using.  You can adjust which resource compiler is
+     being used by the nmake files by changing the ResourceCompiler macro
+     in %ODSRC%\src\Platform.mak.
+
+
+==> Note5: Compilation order  
+
+     If you are doing a complete build from the top of the samples tree,
+     there is no problem with compilation order.  Since the build environment
+     uses four passes (Idls, Hdrs, Libs, Dlls) in the build, everything
+     is available when it is needed.  If, however, you are working in
+     several different parts at the same time, and you aren't doing a top
+     down build, order may matter.  In this case, you might want to check
+     either the FilesDlls or *LibList macro in the parts makefile to see
+     if other dlls need to be built before the part you are working on.
+
+
+
+2) Registering parts with OpenDoc
+-----------------------------------------------------------------------
+When you click on a docshell icon, a window displaying all the registered
+parts will be displayed.  Any of these parts can be selected as the root part
+of a document.  Use the reg1part command file to reregister a part with
+OpenDoc.  The nmake files are designed to automatically re-register a part
+when the corresponding .idl changes.  Additionally, the nmake files can
+force the registration of a part by using 'nmake ForceRegistry'.
+
+
+
+
+
+

@@ -1,0 +1,156 @@
+//#====START_GENERATED_PROLOG======================================
+//#
+//#
+//#   COMPONENT_NAME: odpagepart
+//#
+//#   CLASSES: none
+//#
+//#   ORIGINS: 82,27
+//#
+//#
+//#   (C) COPYRIGHT International Business Machines Corp. 1995,1996
+//#   All Rights Reserved
+//#   Licensed Materials - Property of IBM
+//#   US Government Users Restricted Rights - Use, duplication or
+//#   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//#   	
+//#   IBM DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING
+//#   ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+//#   PURPOSE. IN NO EVENT SHALL IBM BE LIABLE FOR ANY SPECIAL, INDIRECT OR
+//#   CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF
+//#   USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+//#   OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
+//#   OR PERFORMANCE OF THIS SOFTWARE.
+//#
+//#====END_GENERATED_PROLOG========================================
+//#
+/* @(#) 1.7 com/src/samples/utils/iodscrol.idl, odpagepart, od96os2, odos29712d 3/7/97 13:08:44 [3/21/97 17:48:11] */
+
+
+#ifndef _IODSCROL_
+#define _IODSCROL_
+
+#ifndef _EXTENSN_
+#include <extensn.idl>
+#endif
+
+
+
+//======================================================================
+// Classes defined in this interface
+//======================================================================
+
+interface  ODScrollExtension;
+
+
+//======================================================================
+// Classes used by this interface
+//======================================================================
+
+interface ODPart;
+interface ODFrame;
+interface ODFacet;
+interface ODCanvas;
+interface ODShape;
+interface ODTransform;
+
+
+//======================================================================
+// Type definitions used by this interface
+//======================================================================
+
+typedef somToken  RECTL;
+
+
+//======================================================================
+// ODScrollExtension Implementation
+//======================================================================
+
+interface ODScrollExtension : ODExtension
+{
+   ODBoolean HandleScrollEvent(in ODFrame frame, in ODEventData event);
+   void ProcessScrollAmount(in ODFrame frame, in short invalidArea);
+   void ScrollFrameContents(in ODFrame frame);
+   void RedrawAfterScroll(in ODFrame frame, in short invalidArea, in ODTransform oldInternalTransform);
+   void AdjustScrollBars();
+   void SetScrollableDimensions(in ODFrame frame, in long width, in long height);
+   void SetScrollPosition(in ODFrame frame, in long horzScrollPos, in long vertScrollPos);
+   long GetHorizontalScrollPosition();
+   long GetVerticalScrollPosition();
+   long GetVisibleWidth();
+   long GetVisibleHeight();
+   void FacetAdded(in ODFacet facet);
+   void FacetRemoved(in ODFacet facet);
+   void GeometryChanged(in ODFacet facet, in ODBoolean clipShapeChanged, in ODBoolean externalTransformChanged);
+   void FrameShapeChanged(in ODFrame frame);
+   void Initialize(in ODPart base, in long width, in long height);
+
+
+#ifdef __SOMIDL__
+  implementation
+  {
+        dllname = "IODUtils.dll";
+        functionprefix = ODScrollExtension;
+        majorversion = 1;
+        minorversion = 0;
+
+        override:
+                somInit,
+                somUninit;
+
+        releaseorder:
+                HandleScrollEvent,
+                ProcessScrollAmount,
+                ScrollFrameContents,
+                RedrawAfterScroll,
+                AdjustScrollBars,
+                SetScrollableDimensions,
+                SetScrollPosition,
+                GetHorizontalScrollPosition,
+                GetVerticalScrollPosition,
+                GetVisibleWidth,
+                GetVisibleHeight,
+                FacetAdded,
+                FacetRemoved,
+                GeometryChanged,
+                FrameShapeChanged,
+                Initialize;
+
+        //=======================================
+        // ODScrollExtension Instance Variables
+        //=======================================
+
+                ODPlatformWindow   fHorzScrollBarHWND;
+                ODPlatformWindow   fVertScrollBarHWND;
+                ODPlatformWindow   fBlankCornerHWND;
+
+                long               fTotalWidth;
+                long               fTotalHeight;
+
+                long               fVisibleWidth;
+                long               fVisibleHeight;
+
+                long               fCurrentHorzScrollPos;
+                long               fCurrentVertScrollPos;
+
+                ODShape            fEmbeddedControlShape;
+                RECTL*             fScrollableRECTL;
+
+                ODShape            fLeftScrollShape;
+                ODShape            fRightScrollShape;
+                ODShape            fTopScrollShape;
+                ODShape            fBottomScrollShape;
+
+                ODBoolean          fAllowEmbeddedControls;
+
+  }; // end implementation section
+
+#endif //__SOMIDL__
+
+}; // end interface definition
+
+
+#endif //_IODSCROL_
+
+
+

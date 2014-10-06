@@ -1,0 +1,39 @@
+Description:
+
+    The Clock part is a sample part which demonstrates imaging and
+    invalidation.  It is available on the Windows 95/NT and OS/2 platforms.
+
+Files:
+
+    iodclock.txt    --  This file.
+    iodclock.idl    --  SOM idl definitions for SOM class Clock and
+                        meta class M_Clock.
+    iodclock.cpp    --  Class member functions + global objects
+    iodclock.def    --  Library definitions
+    makefile        --  NMAKE file (To build part run: nmake)
+
+
+How to Build:
+
+    To build this part you will need the OpenDoc Release 1.1 toolkit.
+
+    From the clock source directory run
+
+    nmake
+
+    To register the part with OpenDoc, run
+
+    nmake ForceRegistry
+
+Usage:
+
+    To run the Clock, issue the command:
+
+    docshell -k Clock
+
+Design Notes:
+
+Known Restrictions:
+
+    The Clock Part supports only the Frame viewtype.
+

@@ -1,0 +1,74 @@
+//====START_GENERATED_PROLOG======================================
+//
+//
+//   COMPONENT_NAME: oddynamicpart
+//
+//   CLASSES: none
+//
+//   ORIGINS: 82,27
+//
+//
+//   (C) COPYRIGHT International Business Machines Corp. 1995,1996
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//   	
+//   IBM DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING
+//   ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+//   PURPOSE. IN NO EVENT SHALL IBM BE LIABLE FOR ANY SPECIAL, INDIRECT OR
+//   CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF
+//   USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+//   OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
+//   OR PERFORMANCE OF THIS SOFTWARE.
+//
+//====END_GENERATED_PROLOG========================================
+//
+// @(#) 1.2 com/src/samples/dynamicp/bmenu/bmenures.rc, oddynamicpart, od96os2, odos29712d 97/03/21 17:44:47 (96/11/01 08:49:57)
+// resources used to create menus
+STRINGTABLE PRELOAD
+BEGIN
+     DYNAMICPART_MENU           "Dynamic Part"
+     DYNAMICPART_MENU_ROTATE       "Rotation"
+     DYNAMICPART_MENU_RDIR             "Direction"
+     DYNAMICPART_MENU_RDIR_FORWARD        "Clockwise"
+     DYNAMICPART_MENU_RDIR_BACKWARD       "Counter clockwise"
+     DYNAMICPART_MENU_STOPPED         "Start"
+     DYNAMICPART_MENU_RESUMED         "Stop"
+
+     DYNAMICPART_MENU_HSHEAR       "Horizontal Shear"
+     DYNAMICPART_MENU_HDIR             "Direction"
+     DYNAMICPART_MENU_HDIR_FORWARD        "Right"
+     DYNAMICPART_MENU_HDIR_BACKWARD       "Left"
+
+     DYNAMICPART_MENU_VSHEAR       "Vertical Shear"
+     DYNAMICPART_MENU_VDIR             "Direction"
+     DYNAMICPART_MENU_VDIR_FORWARD        "Up"
+     DYNAMICPART_MENU_VDIR_BACKWARD       "Down"
+
+     DYNAMICPART_MENU_RESET               "Reset"
+END
+
+// messages used on message dialog when a menu event is handled.
+STRINGTABLE PRELOAD
+BEGIN
+     DYNAMICPART_MENU_ROTATION_STARTED      "Rotation Started"
+     DYNAMICPART_MENU_ROTATION_STOPPED      "Rotation Stopped"
+     DYNAMICPART_MENU_HSHEAR_STARTED        "Shear Started"
+     DYNAMICPART_MENU_HSHEAR_STOPPED        "Shear Stopped"
+     DYNAMICPART_MENU_VSHEAR_STARTED        "Shear Started"
+     DYNAMICPART_MENU_VSHEAR_STOPPED        "Shear Stopped"
+     DYNAMICPART_MENU_ERROR                 "Menu Error"
+END
+
+MESSAGETABLE PRELOAD
+BEGIN
+     DYNAMICPART_MENU_ROTATION_STARTED    "Dynamic part will rotate."
+     DYNAMICPART_MENU_ROTATION_STOPPED    "Dynamic part will not rotate."
+     DYNAMICPART_MENU_HSHEAR_STARTED      "Dynamic part will shear horizontally."
+     DYNAMICPART_MENU_HSHEAR_STOPPED      "Dynamic part will not shear horizontally."
+     DYNAMICPART_MENU_VSHEAR_STARTED      "Dynamic part will shear vertically."
+     DYNAMICPART_MENU_VSHEAR_STOPPED      "Dynamic part will not shear vertically."
+     DYNAMICPART_MENU_ERROR               "Unknown Menu Item"
+END
+

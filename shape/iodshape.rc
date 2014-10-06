@@ -1,0 +1,70 @@
+//====START_GENERATED_PROLOG======================================
+//
+//
+//   COMPONENT_NAME: odshapepart
+//
+//   CLASSES: none
+//
+//   ORIGINS: 82,27
+//
+//
+//   (C) COPYRIGHT International Business Machines Corp. 1995,1996
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//   	
+//   IBM DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING
+//   ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+//   PURPOSE. IN NO EVENT SHALL IBM BE LIABLE FOR ANY SPECIAL, INDIRECT OR
+//   CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF
+//   USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+//   OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
+//   OR PERFORMANCE OF THIS SOFTWARE.
+//
+//====END_GENERATED_PROLOG========================================
+//
+/* @(#)Z 1.6 os2/src/samples/shape/iodshape.rc, odshapepart, od96os2, odos29712d 97/03/21 17:47:38 (97/01/30 12:58:45) */
+/********************************************************************/
+/*                                                                  */
+/* File:    iodshape.rc                                             */
+/*                                                                  */
+/* Contains:  Resources for the Shape part                          */
+/*                                                                  */
+/********************************************************************/
+
+#include "ODResrc.h"
+#include "iodshape.h"
+#include <ODos2.h>
+
+POINTER kODIcon LOADONCALL MOVEABLE DISCARDABLE iodshape.ico
+
+DLGTEMPLATE ID_COLORS PRELOAD MOVEABLE DISCARDABLE
+BEGIN 
+    DIALOG  "Colors", ID_COLORS, 133, -63, 112, 175, WS_VISIBLE, FCF_TITLEBAR 
+    BEGIN 
+        CONTROL         "", ID_MIX, 68, 86, 40, 82, "ColorMix", WS_GROUP | 
+                        WS_VISIBLE 
+        SLIDER          ID_SLIDER_BASE, 8, 25, 10, 144, SLS_VERTICAL | 
+                        SLS_LEFT | SLS_SNAPTOINCREMENT | SLS_BUTTONSLEFT | 
+                        SLS_OWNERDRAW | SLS_RIBBONSTRIP | WS_GROUP 
+                        CTLDATA 12, 0, 256, 0, 0, 0 
+        SLIDER          25, 29, 25, 10, 144, SLS_VERTICAL | SLS_LEFT | 
+                        SLS_SNAPTOINCREMENT | SLS_BUTTONSLEFT | 
+                        SLS_OWNERDRAW | SLS_RIBBONSTRIP | WS_GROUP 
+                        CTLDATA 12, 0, 256, 0, 0, 0 
+        SLIDER          26, 50, 25, 10, 144, SLS_VERTICAL | SLS_LEFT | 
+                        SLS_SNAPTOINCREMENT | SLS_BUTTONSLEFT | 
+                        SLS_OWNERDRAW | SLS_RIBBONSTRIP | WS_GROUP 
+                        CTLDATA 12, 0, 256, 0, 0, 0 
+        SPINBUTTON      ID_SPIN_BASE, 3, 7, 20, 12, SPBS_NUMERICONLY | 
+                        SPBS_JUSTRIGHT | SPBS_FASTSPIN | WS_GROUP 
+        SPINBUTTON      29, 24, 7, 20, 12, SPBS_NUMERICONLY | 
+                        SPBS_JUSTRIGHT | SPBS_FASTSPIN | WS_GROUP 
+        SPINBUTTON      30, 45, 7, 20, 12, SPBS_NUMERICONLY | 
+                        SPBS_JUSTRIGHT | SPBS_FASTSPIN | WS_GROUP 
+        DEFPUSHBUTTON   "OK", DID_OK, 68, 64, 40, 14 
+        PUSHBUTTON      "Cancel", DID_CANCEL, 68, 46, 40, 14 
+    END 
+END 
+

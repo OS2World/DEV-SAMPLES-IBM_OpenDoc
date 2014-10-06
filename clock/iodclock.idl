@@ -1,0 +1,112 @@
+//#====START_GENERATED_PROLOG======================================
+//#
+//#
+//#   COMPONENT_NAME: odclockpart
+//#
+//#   CLASSES: none
+//#
+//#   ORIGINS: 27
+//#
+//#
+//#   (C) COPYRIGHT International Business Machines Corp. 1995,1996
+//#   All Rights Reserved
+//#   Licensed Materials - Property of IBM
+//#   US Government Users Restricted Rights - Use, duplication or
+//#   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//#
+//#   IBM DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING
+//#   ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+//#   PURPOSE. IN NO EVENT SHALL IBM BE LIABLE FOR ANY SPECIAL, INDIRECT OR
+//#   CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF
+//#   USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+//#   OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
+//#   OR PERFORMANCE OF THIS SOFTWARE.
+//#
+//#====END_GENERATED_PROLOG========================================
+//#
+// @(#)Z 1.11 com/src/samples/clock/iodclock.idl, odclockpart, od96os2, odos29712d 97/03/21 17:45:26 (96/10/09 19:22:26)
+#ifdef __PRIVATE__
+//#
+//#     File:           iodclock.idl
+//#
+//#     Contains:       IDL description of Clock Part
+//#
+//#     Written by:
+//#
+//#     Copyright:      (c) 1996 by IBM Corp., all rights reserved.
+//#
+#else
+//#     Copyright:      (c) 1996 by IBM Corp., all rights reserved.
+#endif
+
+
+#ifndef _Clock_
+#define _Clock_
+
+// Include ShapePart and M_ShapePart definitions.
+#include "iodshape.idl"
+
+//===================================================================================================
+// Classes defined in this interface
+//===================================================================================================
+interface Clock;
+interface M_Clock;
+
+
+//===================================================================================================
+// Clock Implementation
+//===================================================================================================
+
+interface Clock : ShapePart
+{
+        void      InvalidateHands(in ODFacet facet, in ODFrame frame);
+#ifdef __SOMIDL__
+        implementation
+        {
+                functionprefix = Clock;
+                metaclass     = M_Clock;
+                majorversion = 1;
+                minorversion = 0;
+                dllname = "iodclock.dll";
+
+        releaseorder:
+               InvalidateHands;
+
+
+        override:
+               CommonInit,
+               Draw,
+               Externalize,
+               HandleEvent;
+
+
+//===================================================================================================
+// Clock variables
+//===================================================================================================
+
+         float ClockPtx[359];  // x coordinate for each of 360 degrees
+         float ClockPty[359];  // y coordinate for each of 360 degrees
+
+
+        };
+#endif
+};
+
+interface M_Clock : M_ShapePart
+{
+
+#ifdef __SOMIDL__
+  implementation
+  {
+    functionprefix = M_Clock;
+    override:
+      clsGetODPartHandlerName,
+      clsGetODPartHandlerDisplayName,
+      clsGetODPartKinds,
+      clsGetOLE2ClassId,
+      clsGetWindowsIconFileName;
+  };
+#endif
+};
+#endif  // _Clock_
+

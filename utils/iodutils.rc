@@ -1,0 +1,154 @@
+//====START_GENERATED_PROLOG======================================
+//
+//
+//   COMPONENT_NAME: odpagepart
+//
+//   CLASSES: none
+//
+//   ORIGINS: 82,27
+//
+//
+//   (C) COPYRIGHT International Business Machines Corp. 1995,1996
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//   	
+//   IBM DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING
+//   ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+//   PURPOSE. IN NO EVENT SHALL IBM BE LIABLE FOR ANY SPECIAL, INDIRECT OR
+//   CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF
+//   USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+//   OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
+//   OR PERFORMANCE OF THIS SOFTWARE.
+//
+//====END_GENERATED_PROLOG========================================
+//
+// @(#) 1.7 com/src/samples/utils/iodutils.rc, odpagepart, od96os2, odos29712d 11/4/96 06:18:25 [3/21/97 17:48:24]
+
+#ifndef IODUTILS_RESOURCES
+#define IODUTILS_RESOURCES
+#endif
+
+#ifdef _PLATFORM_OS2_
+#include <os2.h>
+#endif
+
+#ifdef _PLATFORM_WIN32_
+#include <WINUSER.H>
+#endif
+
+#include <ODRes.h>
+#include "iodprint.hpp"
+
+
+#ifdef _PLATFORM_WIN32_
+PrintingPage DIALOG  120, 55, 148, 61
+STYLE WS_VISIBLE
+CAPTION "OpenDoc Print Progress"
+BEGIN
+    PUSHBUTTON      "&Cancel", StopPrinting, 50, 11, 40, 14
+    LTEXT           "", PrintQueueName, 43, 44, 94, 8
+    CTEXT           "", PrintPageNum, 10, 31, 128, 8
+    LTEXT           "Printer:", 210, 8, 44, 31, 8
+END
+#endif
+
+
+#ifdef _PLATFORM_OS2_
+DLGTEMPLATE PrintingPage LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "OpenDoc Print Progress", PrintingPage, 120, 55, 148, 61,
+            WS_VISIBLE, FCF_TITLEBAR
+    BEGIN
+        PUSHBUTTON      "~Cancel", StopPrinting, 50, 11, 40, 14
+        LTEXT           "", PrintQueueName, 43, 44, 94, 8
+        CTEXT           "", PrintPageNum, 10, 31, 128, 8
+        LTEXT           "Printer:", 210, 8, 44, 31, 8
+    END
+END
+
+
+DLGTEMPLATE PrinterListBoxDlgRes LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Available Printers", PrinterListBoxDlgRes, 77, 67, 231, 76,
+            WS_VISIBLE, FCF_SYSMENU | FCF_TITLEBAR
+    BEGIN
+        LISTBOX         PrintListBox, 7, 11, 137, 56, LS_HORZSCROLL |
+                        WS_GROUP
+        DEFPUSHBUTTON   "~Ok", DID_OK, 157, 56, 66, 11, WS_GROUP
+        PUSHBUTTON      "~Properties...", PrinterProperties, 157, 41, 66, 11, WS_GROUP
+        PUSHBUTTON      "~Cancel", DID_CANCEL, 157, 26, 66, 11, WS_GROUP
+        PUSHBUTTON      "~Help", DID_HELP, 157, 11, 66, 11, WS_GROUP
+    END
+END
+
+
+DLGTEMPLATE PrintRangeDlgRes LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "OpenDoc Printing", PrintRangeDlgRes, 122, 39, 190, 134, WS_VISIBLE,
+            FCF_SYSMENU | FCF_TITLEBAR
+    BEGIN
+        LTEXT           "Printer:", 512, 11, 117, 35, 10
+        LTEXT           "", PrinterName, 61, 117, 127, 10, NOT WS_GROUP
+        LTEXT           "Document:", 514, 11, 104, 44, 10
+        LTEXT           "", DocumentName, 61, 104, 127, 10, NOT WS_GROUP
+        GROUPBOX        "Page selection", 516, 7, 28, 127, 64
+        AUTORADIOBUTTON "All", PrintAllPages, 16, 69, 39, 10, WS_TABSTOP
+        AUTORADIOBUTTON "Selective", PrintSelectivePages, 16, 59, 49, 10,
+                        WS_TABSTOP
+        LTEXT           "From", 519, 18, 39, 24, 8
+        SPINBUTTON      PrintFrom, 45, 41, 30, 8,
+                        SPBS_NUMERICONLY | SPBS_MASTER | SPBS_JUSTRIGHT |
+                        SPBS_FASTSPIN | WS_GROUP
+        LTEXT           "To", 521, 80, 40, 16, 8
+        SPINBUTTON      PrintTo, 99, 41, 30, 8,
+                        SPBS_NUMERICONLY | SPBS_MASTER | SPBS_JUSTRIGHT |
+                        SPBS_FASTSPIN | WS_GROUP
+        DEFPUSHBUTTON   "~Print", PrintDoc, 15, 5, 40, 14
+        PUSHBUTTON      "~Cancel", PrintCancel, 75, 5, 40, 14
+        PUSHBUTTON      "~Help", DID_HELP, 135, 5, 40, 14
+        LTEXT           "Copies", 525, 149, 77, 36, 8
+        SPINBUTTON      PrintCopies, 148, 62, 35, 8,
+                        SPBS_NUMERICONLY | SPBS_MASTER | SPBS_JUSTRIGHT |
+                        SPBS_FASTSPIN | WS_GROUP
+    END
+END
+#endif //_PLATFORM_OS2_
+
+
+STRINGTABLE
+   BEGIN
+// begin strings for warning and error message boxes
+   NoPrintQueueMsg     ,"No printer queue defined; entering non-standard paper size mode (printing disabled)!"
+   CantPrintErrorMsg   ,"This version of Page Layout cannot print to non-standard paper sizes!"
+   CantQueryPrinterMsg ,"An error occurred while trying to query the currently selected printer!"
+   PrinterFormErrorMsg ,"Error querying printer form data!"
+   PrintFailureMsg     ,"Unable to print!!!"
+   NoDefaultQueueMsg   ,"No Default Print Queue."
+   PrintBufferErrorMsg ,"Print buffer error!"
+   PrintersNotAvailMsg ,"An error occurred while querying available printers."
+   NoPrintersWarning   ,"There are no printers defined."
+// end strings for warning and error message boxes
+
+// begin strings used in sprintf's
+   PrintingPageXString ,"Printing Page %d"
+   ErrorQueueXString   ,"Error opening printer queue: %s"
+// end strings used in sprintf's
+
+// begin strings for message types
+   ErrorMsgString      ,"Error"
+   WarningMsgString    ,"Warning"
+   InfoMsgString       ,"Information"
+   MessageMsgString    ,"Message"
+// end strings for message types
+
+// begin strings for printing dialogs
+   UntitledDocumentMsg ,"Untitled"
+   InitializingMsg     ,"Initializing"
+   PreparingJobMsg     ,"Preparing Print Job"
+   CompletingJobMsg    ,"Completing Print Job"
+   PageNumberMsg       ,"Page Number"
+// end strings for printing dialogs
+   END
+

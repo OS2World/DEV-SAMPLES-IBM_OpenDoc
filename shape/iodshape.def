@@ -1,0 +1,10 @@
+LIBRARY iodshape INITINSTANCE TERMINSTANCE
+DESCRIPTION 'Shape Part Handler Library'
+DATA MULTIPLE NONSHARED LOADONCALL
+EXPORTS
+   ShapePartCClassData
+   ShapePartClassData
+   ShapePartNewClass
+   M_ShapePartCClassData
+   M_ShapePartClassData
+   M_ShapePartNewClass

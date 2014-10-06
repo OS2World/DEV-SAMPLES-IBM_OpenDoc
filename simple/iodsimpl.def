@@ -1,0 +1,11 @@
+; @(#) 1.7 os2/src/samples/simple/iodsimpl.def, odsimplepart, od96os2, odos29712d 9/18/96 12:43:48 [ 3/21/97 17:45:24 ]
+LIBRARY iodsimpl INITINSTANCE TERMINSTANCE
+DESCRIPTION 'SimplePart Class Library'
+DATA MULTIPLE NONSHARED LOADONCALL
+EXPORTS
+   SimplePartCClassData
+   SimplePartClassData
+   SimplePartNewClass
+   M_SimplePartCClassData
+   M_SimplePartClassData
+   M_SimplePartNewClass

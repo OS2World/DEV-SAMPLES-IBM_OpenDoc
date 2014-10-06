@@ -1,0 +1,122 @@
+Description:
+
+    The BaseContainer part is a subclassable sample part which demonstrates
+    several OpenDoc protocols such as registration, embedding, internalization,
+    externalization, cloning, multiple selection, drag/drop, and clipboard
+    operations.  It is available on the Windows 95/NT, OS/2, and AIX platforms.
+
+    The BaseContainer part does not have intrinsic contents.  Its contents
+    include only embedded frames.  Subclasses of BaseContainer can define/add
+    intrinsic contents and let BaseContainer handle them optionally using its
+    generic 'Content Object' class.
+
+Files:
+
+    iodbasec.txt  --  This file
+    iodbasec.idl  --  SOM IDL definitions for SOM class BaseContainer
+                      and metaclass M_BaseContainer
+    iodbasec.cpp  --  Class member functions
+    bcevent.cpp   --  Event handler functions
+    bcxfer.cpp    --  Data transfer functions
+    bcmain.h      --  Header file
+    iodbcobj.idl  --  SOM IDL definition for SOM class ContentObject and its
+                      subclass ContentFrame.
+    iodbcobj.cpp  --  Member functions for ContentObject and ContentFrame
+    iodbcutl.idl  --  SOM IDL definition for linked list class ALinkedList.
+    iodbcutl.cpp  --  Class member functions for ALinkedList
+    iodbcitr.idl  --  SOM IDL definition for embedded frames iterator
+                      class BCIterator.
+    iodbcitr.cpp  --  Class member functions for BCIterator
+    iodbcset.idl  --  SOM IDL definition for ODSettingsExtension subclass
+                         BCPageSettingsExt.
+    iodbcset.cpp  --  Class member functions for BCPartSettingsExt
+    iodbcpag.idl  --  SOM IDL definition for ODPropertyPage subclass 
+                         BaseContainerPage (AIX only).
+    iodbcpag.cpp  --  Class member functions for BaseContainerPage (AIX only).
+    iodbcvwt.cpp  --  BaseContainer private methods for ViewType support.
+    iodbcres.h    --  Header file containing resource ids (OS/2 and NT only)
+    os2plat.cpp   --  Helper functions (OS/2 only)
+    iodbasec.msg  --  English message file
+    iodbasec.def  --  Library definitions (platform specific)
+    iodbasec.rc   --  Resource file (NT and OS/2 only)
+    iodbasec.ico  --  Document Icon File (platform specific)
+    iodbcsta.ico  --  Stationery Icon File (NT only)
+    iodbcedt.ico  --  Editor Icon File (NT only)
+    makefile      --  NMAKE file (To build part run: nmake)
+
+
+How to Build:
+
+    To build this part you will need the OpenDoc Release 1.1 toolkit.
+
+    From the basecntr source directory run
+
+    nmake
+
+    To register the part with OpenDoc, run
+
+    nmake ForceRegistry
+
+Usage:
+
+    To run the BaseContainer, issue the command:
+       docshell
+    and select "IBM BaseContainer Kind" from the dialog box.
+
+    Other parts can now be embedded in the BaseContainer.
+    Following editing operations can be performed on BaseContainer:
+
+    Embed -- Click on "Embed" pull-down menu of base container. A list
+             of all part handlers that are installed on the system is
+             displayed.  This list is created dynamically when base
+             container is loaded.  Select a part handler and click in
+             base container's client area to embed a part.  BaseContainer
+             allows multiple levels of embedding.
+
+    Select -- An embedded part can be selected by 4 ways
+             1) Activate the embedded part and click on its activation border
+             2) If the embedded part is not active then Shift-Click or
+                Ctrl-Click on it
+             3) Lasso selection: Hold and drag left mouse button down in
+                BaseContainer's client area to get a selection rectangle.
+                All the embeds that are in the selection rectangle when the
+                mouse button is released are selected
+             4) Use 'Select All' menu option from 'Edit' menu.
+
+             BaseContainer allows multiple selection.  Upon Ctrl-Click or
+             Shift-Click the selection state of the embed is toggled.
+             When the part is deactivated, all the selected parts are deselected.
+
+    Move --  Selection can be moved using the selection border.  One cannot
+             move the selection outside the container's boundaries. A single
+             selected part can also be moved using 'Move' menu item in 'Edit'
+             menu.
+
+    Resize -- A selected part can be resized by stretching its corner or edge
+             selection handles.  One can also use 'Resize' menu option from
+             'Embed' menu.
+
+    Delete -- Use 'Delete Selection' menu option from 'Edit' menu
+
+    Copy/Paste -- To copy selection, use 'Copy' menu option form 'Edit' menu.
+              To paste clipboard contents, select 'Paste' menu and then click
+              in client area of the active BaseContainer.
+
+    Drag/Drop -- Press drag-mouse-button in the client area of selection and
+              drag it to the desired location either in same docshell or
+              another one.  Modifier keys can be used to force a drag-copy or
+              a drag-move.
+
+Design Notes:
+   For information on how to subclass from the BaseContainer and
+   the ContentObject classes, see appendix D of the "IBM OpenDoc
+   Programming Guide."
+
+Known Restrictions:
+
+    BaseContainer does not allow "Open As Window" functionality.
+    BaseContainer supports icon views, however, the thumbnail view is
+    not fully implemented yet. At this time it just displays a large icon
+    on a thumbnail size frame.
+
+

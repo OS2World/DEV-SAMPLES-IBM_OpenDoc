@@ -1,0 +1,319 @@
+//#====START_GENERATED_PROLOG======================================
+//#
+//#
+//#   COMPONENT_NAME: oddynamicpart
+//#
+//#   CLASSES: none
+//#
+//#   ORIGINS: 82,27
+//#
+//#
+//#   (C) COPYRIGHT International Business Machines Corp. 1995,1996
+//#   All Rights Reserved
+//#   Licensed Materials - Property of IBM
+//#   US Government Users Restricted Rights - Use, duplication or
+//#   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//#
+//#   IBM DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING
+//#   ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+//#   PURPOSE. IN NO EVENT SHALL IBM BE LIABLE FOR ANY SPECIAL, INDIRECT OR
+//#   CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF
+//#   USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+//#   OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
+//#   OR PERFORMANCE OF THIS SOFTWARE.
+//#
+//#====END_GENERATED_PROLOG========================================
+//#
+// @(#) 1.18 com/src/samples/dynamicp/ioddynam.idl, oddynamicpart, od96os2, odos29712d 2/18/97 13:54:38 [3/21/97 17:45:25]
+
+#ifdef __PRIVATE__
+//#
+//#     File:           ioddynam.idl
+//#
+//#     Contains:       IDL description of sample Dynamic Part
+//#
+//#
+#endif
+
+
+#ifndef _DYNAMICPART_
+#define _DYNAMICPART_
+
+#ifndef _SIMPLPART_
+#include "iodsimpl.idl"
+#include "oddsconn.idl"
+#endif
+
+#ifdef __PRIVATE__
+   typedef somToken IDynamicLinkLibrary;
+   typedef somToken IdColor;
+   typedef somToken IFont;
+   typedef somToken IGString;
+   typedef somToken IGBitmap;
+   typedef somToken ITimer;
+#endif  // __PRIVATE__
+
+interface M_DynamicPart;
+interface ODMenuBar;
+interface ODPopup;
+interface ODSession;
+interface ODxOrderedCollection;
+interface ODxOrderedCollectionIterator;
+interface ODStorageUnit;
+
+interface ScriptableDynamicPartScrExt ;
+
+//=====================================================================================
+// Implementation Types
+//=====================================================================================
+
+
+interface DynamicPart :   ODDSConnection, SimplePart
+{
+    attribute ODFloat    xRotAngle;        // current angle of rotation
+    attribute ODFloat    hShearAngle;
+    attribute ODFloat    vShearAngle;
+    attribute ODFloat    xAngleDelta;      // angle delta in degrees
+    attribute ODBoolean  scrolling;        // are we scrolling?
+    attribute ODBoolean  xRotateActive;    // are we rotating?
+    attribute ODBoolean  hShearActive;     // are we changing horiz shear?
+    attribute ODBoolean  vShearActive;     // are we changing vert shear?
+    attribute ODBoolean  xRotateClockwise; // which way to rotate? (1=clockwise, 0=counterclockwise)
+    attribute ODBoolean  hShearRight;      // which way to shear?  (1=left,      0=right}
+    attribute ODBoolean  vShearUp;         // which way to shear?  (1=up,        0=down)
+
+    void ScrollTicker();
+    void RotateContent(in ODFloat byAngle);
+    void SetInternalXform(in ODFrame frame);
+    void Reset();
+    void CloneContents(in ODStorageUnit toSU);
+
+#ifdef __PRIVATE__
+    void UpdateTransformAngles(in ODFloat angleDelta);
+    void CalcNewShape(in ODFrame frame);
+    void CalcRotationFactors(out ODFloat rotSin,
+                             out ODFloat rotCos,
+                             out ODFloat hshTan,
+                             out ODFloat vshTan);
+    void AdjustSize(in ODFrame frame, in ODFacet facet);
+#endif // __PRIVATE__
+
+
+#ifdef __SOMIDL__
+        implementation
+        {
+                functionprefix = DynamicPart__;
+                metaclass     = M_DynamicPart;
+                dllname= "ioddynam.dll";
+                majorversion = 1;
+                minorversion = 0;
+                ODGuid = "{9874b1c0-00f8-11d0-b25e-08005a49d940}";
+                ODevent = "DynamicPartEvent";
+
+        releaseorder:
+                ScrollTicker,
+                RotateContent,
+                SetInternalXform,
+                Reset,
+#ifdef __PRIVATE__
+                UpdateTransformAngles,
+                CalcRotationFactors,
+                CalcNewShape,
+                AdjustSize,
+#else
+                temp1,
+                temp2,
+                temp3,
+                temp4,
+#endif // __PRIVATE__
+                _get_xRotAngle,        _set_xRotAngle,
+                _get_hShearAngle,      _set_hShearAngle,
+                _get_vShearAngle,      _set_vShearAngle,
+                _get_xAngleDelta,      _set_xAngleDelta,
+                _get_scrolling,        _set_scrolling,
+                _get_xRotateActive,    _set_xRotateActive,
+                _get_hShearActive,     _set_hShearActive,
+                _get_vShearActive,     _set_vShearActive,
+                _get_xRotateClockwise, _set_xRotateClockwise,
+                _get_hShearRight,      _set_hShearRight,
+                _get_vShearUp,         _set_vShearUp,
+                CloneContents
+                ;
+
+        xRotAngle:          noset;
+        hShearAngle:        noset;
+        vShearAngle:        noset;
+        scrolling:          noset;
+        xRotateActive:      noset;
+        hShearActive:       noset;
+        vShearActive:       noset;
+
+        AdjustMenus:        override;
+        CloneInto:          override;
+        CommonInit:         override;
+        ContainingPartPropertiesUpdated: override;
+        Draw:               override;
+        Externalize:        override;
+        FacetAdded:         override;
+        FacetRemoved:       override;
+        FrameShapeChanged:  override;
+        HandleMenuEvent:    override;
+        InitPart:           override;
+        InitPartFromStorage:override;
+        InstallMenus:       override;
+        somDefaultInit:     override;
+        somDestruct:        override;
+        somDumpSelfInt:     override;
+        HasExtension:       override;
+        AcquireExtension:   override;
+        ReleaseExtension:   override;
+        ViewTypeChanged:    override;
+        CreateIcons:        override;
+
+                passthru C_xih = " "
+                                "#define ODDEBUG"
+                                "#define VARIABLE_MACROS"
+                                 "#ifndef _OS2_OD_GA_"
+                                 "  typedef unsigned long RGBColor;"
+                                 "#endif"
+                                 "class ODxOrderedCollection;"
+                                 "#include <icolor.hpp>"
+                                 "#include <ifont.hpp>"
+                                 "#include <igbitmap.hpp>"
+                                 "#include <igstring.hpp>"
+                                 "#include <ireslib.hpp>"
+                                 "#include <istring.hpp>"
+                                 "#include <itimer.hpp>"
+                ;
+
+                passthru C_xih_after = ""
+                                      "// create a subclass of IColor that provides a
+                                      "// default constructor.
+                                      "class IdColor : public  IColor {"
+                                      "  public:"
+                                      "   IdColor() : IColor(IColor::black){};
+                                      "   IdColor(IColor::Color color) : IColor(color){};
+                                      "};"
+                ;
+
+
+                // Instance Variables
+
+                /////////////////////////////////////////////////////////
+                // These instance variables are not persistent.  They are
+                // re-created each time the part is loaded.
+                /////////////////////////////////////////////////////////
+                IDynamicLinkLibrary  *Resources;        // Pointer to DLL for reading resources.
+                ODBoolean             fIsInitialized;   // Variable to see if part has been initialized
+                ODMenuBar             fMenuBar;         // menu bar
+                ODPopup               fPopup;           // popup menu
+                ODSession             fSession;
+                ODID                  fWindowID;        // ID of View As Window window
+                ODBoolean             fDraftReadOnly;   // Set if draft is not writeable
+
+                ODPart  fPartWrapper;          // part wrapper //
+                ODSLong facetCount;
+
+                ///////////////////////////////////////////
+                // These instance variables are persistent.
+                ///////////////////////////////////////////
+                // dynamic part instance variables //
+                ODSLong         scrollTimerRate;  // timer interval in milli-seconds
+                ODSLong         rotateTimerRate;  // timer interval in milli-seconds
+                ODSLong         JumpRate;         // number of pixels skipped each time interval
+                ITimer         *scrollTimer;
+                ITimer         *rotateTimer;
+
+                // layout instance variables //
+                ODSLong         ScrollPos;        // Position of message in scroll bar.
+                ODBoolean       fFrameNegotiated; // flag for initial frame size negotiation
+
+                // drawing instance variables //
+                ODBoolean       customBackground; // is background color customized?
+                IdColor         BackColor;        // background color for bottom half
+                ODBoolean       customTextColor;  // is text color customized?
+                IdColor         TextColor;        // foreground color
+                IGString       *Message;          // scrolling message
+
+                // transform instance variables //
+             // made these attributes //
+             // ODFloat         xRotAngle;        // current angle of rotation
+             // ODFloat         hShearAngle;
+             // ODFloat         vShearAngle;
+             // ODFloat         xAngleDelta;      // angle delta in degrees
+             // ODBoolean       scrolling;        // are we scrolling?
+             // ODBoolean       xRotateActive;    // are we rotating?
+             // ODBoolean       hShearActive;     // are we changing horiz shear?
+             // ODBoolean       vShearActive;     // are we changing vert shear?
+             // ODBoolean       xRotateClockwise; // which way to rotate? (1=clockwise, 0=counterclockwise)
+             // ODBoolean       hShearRight;      // which way to shear?  (1=left,      0=right}
+             // ODBoolean       vShearUp;         // which way to shear?  (1=up,        0=down)
+
+                ///////////////////////////////////////////////////////////////////////
+                // The following are used but are not persistent
+                // because they can be calculated easily from the frame shape.
+                ///////////////////////////////////////////////////////////////////////
+                // drawing instance variables //
+                ODBoolean       customFont;       // custom font, or use containers?
+                IFont          *Font;             // font
+                IGBitmap       *ODBitmap;         // bitmap to use for title
+
+                // Scripting instance variables //
+                ODDSEventMgr                fEventMgr;
+                ODGUID                      fEvtGuid;
+                ScriptableDynamicPartScrExt fScriptExtension ;
+
+           // Scripting Methods and Properties
+           xRotataAngle     :  ODid = 101;
+           hShareAngle      :  ODid = 103;
+           vShareAngle      :  ODid = 105;
+           xAngleDelta      :  ODid = 107;
+           scrolling        :  ODid = 109;
+           xRotateActive    :  ODid = 111;
+           hShearActive     :  ODid = 113;
+           vShearActive     :  ODid = 115;
+           xRotateClockwise :  ODid = 117;
+           hShearRight      :  ODid = 119;
+           vShearUp         :  ODid = 121;
+           Reset            :  ODid = 123;
+        }; // end implementation section
+
+
+#endif
+};
+
+
+
+
+interface M_DynamicPart : M_SimplePart
+{
+
+#ifdef __SOMIDL__
+  implementation
+  {
+    functionprefix = M_DynamicPart__;
+    override:
+      clsGetODPartHandlerName,
+      clsGetODPartHandlerDisplayName,
+      clsGetODPartKinds,
+      clsGetOLE2ClassId,
+      clsGetWindowsIconFileName;
+  };
+#endif
+};
+
+
+interface DynamicPartEvent : SOMObject {
+   void PositionChange(in ODFloat rotate_ang, in ODFloat h_ang,
+                       in ODFloat v_ang);
+#ifdef __SOMIDL__
+   implementation {
+     ODevent;
+     releaseorder: PositionChange;
+     ODGuid = "{d3662880-267a-11d0-a5c3-0004ac3280dc}";
+     PositionChange:ODid = 200;
+   };
+#endif
+
+};
+#endif  // _DYNAMICPART_

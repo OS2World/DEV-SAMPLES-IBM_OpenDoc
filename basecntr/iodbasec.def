@@ -1,0 +1,28 @@
+; @(#) 1.8 os2/src/samples/basecntr/iodbasec.def, odbasepart, od96os2, odos29712d 9/18/96 12:33:23 [3/21/97 17:45:24]
+;
+LIBRARY iodbasec INITINSTANCE TERMINSTANCE
+DESCRIPTION 'BaseContainer Class Library'
+DATA MULTIPLE NONSHARED LOADONCALL
+EXPORTS
+   BaseContainerCClassData
+   BaseContainerClassData
+   BaseContainerNewClass
+   BCIteratorCClassData
+   BCIteratorClassData
+   BCIteratorNewClass
+   M_BaseContainerCClassData
+   M_BaseContainerClassData
+   M_BaseContainerNewClass
+   ContentObjectCClassData
+   ContentObjectClassData
+   ContentObjectNewClass
+   ContentFrameCClassData
+   ContentFrameClassData
+   ContentFrameNewClass
+   ALinkCClassData
+   ALinkClassData
+   ALinkNewClass
+   ALinkedListCClassData
+   ALinkedListClassData
+   ALinkedListNewClass
+

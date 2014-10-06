@@ -1,0 +1,96 @@
+Description:
+
+    The PageLayout part is a sample part which demonstrates pagination
+    and printing.  It is available on the Windows 95/NT and OS/2 platforms.
+    You can use the PageLayout part to control the alignment of components
+    within a document, to control placement of content on multiple pages of a
+    document, and to determine the printer setup for a document.  PageLayout
+    also provides the pagination framework for documents, such as
+    margins, page orientation, page numbering, headers, and footers.
+
+    Page Layout must be used as a root component for documents longer
+    than one page with consecutive page numbering.  Although Page Layout
+    can serve as an embedded part, its usefulness is greatly diminished in
+    that capacity; it can only actually control the layout of the printed
+    pages when it is the root part of the document.
+
+Files:
+    iodpage.txt   --  This file.
+    iodpage.idl   --  SOM IDL definitions for SOM class PageLayout and
+                      meta class M_PageLayout.
+    iodpage.cpp   --  PageLayout and M_PageLayout class member functions.
+    iodpage.hpp   --  Header file used by iodpage.cpp
+    iodpgprn.idl  --  SOM IDL definitions for SOM class PageLayoutPrintExtension.
+    iodpgprn.cpp  --  PageLayoutPrintExtension class member functions.
+    iodpage.ico   --  Icon file
+    iodpage.rc    --  Resource file
+    iodpgres.h    --  Header file used by Resource file
+    iodpage.def   --  Library definitions
+    makefile      --  NMAKE file (To build part run: nmake)
+
+How to Build:
+
+    To build this part you will need the OpenDoc Release 1.1 toolkit.
+
+    From the pagepart source directory run
+
+    nmake
+
+    To register the part with OpenDoc, run
+
+    nmake ForceRegistry
+
+Usage:
+
+    To run the PageLayout part, issue the command:
+
+    docshell -k PageLayout
+
+    Other parts can now be embedded in the PageLayout part via
+    the Embed Menu.  The Colors menu allows you to change the
+    background color of the PageLayout part, the page color, or
+    the color of the rulers, margin, and alignment grid.
+
+    Additional pages can be added or removed via the Page menu.
+    The Page menu also allows you to add a default header and footer
+    to each page in the document.
+
+    The View menu contains additional options to allow you to display
+    rulers along the top and left sides of each page, and to display the
+    margins or alignment grid on the page itself.
+
+    The Fill Entire Page option on the Edit menu will allow a selected
+    part to be expanded to fill a page.  The Snap to Grid option on
+    the Edit menu allows selected parts to be moved and resized to fit
+    within the nearest corners of the alignment grid.
+
+
+Design Notes:
+
+    The PageLayout sample currently runs on the Windows 95/NT,
+    and OS/2 platforms.  It subclasses from the BaseContainer part
+    and from the ODPrintExtension to expand upon the default
+    printing behavior provided by the BaseContainer.
+    It also uses the ODScrollExtension to allow the user
+    to create a multi-page document within a single display frame.
+    The Page Layout part demonstrates frame negotiation; it always
+    keeps embedded parts within the margins of each page.
+
+
+Known Restrictions:
+
+    Page Layout is currently unable to print long documents to
+    certain printers (the higher the vertical dots-per-inch of the
+    printer, the less pages will be able to be printed).  The formula
+    for the maximum number of pages that can be printed is:
+    
+    MaxPages = 32768/((page height in inches+1)*(vertical printer dpi))+1
+    
+    For example, a 720x360 dpi printer using 11-inch tall paper would
+    have a maximum printable page limit of 32768/(12*360)+1, or 8 pages.
+
+    To work around this limitation, either decrease the resolution of the
+    printout (via Job Properties on the printer), or split up the printout
+    into multiple documents.
+
+

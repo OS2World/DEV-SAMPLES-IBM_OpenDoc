@@ -1,0 +1,143 @@
+//# @(#) 1.2 com/src/samples/utils/iodlink.idl, odutilspart, od96os2, odos29712d 10/1/96 09:45:22 [ 3/21/97 17:48:03 ]
+//#====START_GENERATED_PROLOG======================================
+//#
+//#
+//#   COMPONENT_NAME: odsamples
+//#
+//#   CLASSES: none
+//#
+//#   ORIGINS: 27
+//#
+//#
+//#   (C) COPYRIGHT International Business Machines Corp. 1995,1996
+//#   All Rights Reserved
+//#   Licensed Materials - Property of IBM
+//#   US Government Users Restricted Rights - Use, duplication or
+//#   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//#
+//#   IBM DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING
+//#   ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+//#   PURPOSE. IN NO EVENT SHALL IBM BE LIABLE FOR ANY SPECIAL, INDIRECT OR
+//#   CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF
+//#   USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+//#   OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
+//#   OR PERFORMANCE OF THIS SOFTWARE.
+//#
+//#====END_GENERATED_PROLOG========================================
+//#
+
+#ifndef _IODLinkedList_
+#define _IODLinkedList_
+
+#ifndef _ODOBJECT_
+#include "ODObject.idl"
+#endif
+
+
+//==============================================================================
+// Classes defined in this interface
+//==============================================================================
+
+interface IODLink;
+interface IODLinkedList;
+
+//==============================================================================
+// typedefs
+//==============================================================================
+
+//==============================================================================
+// IODLink
+//==============================================================================
+
+
+interface IODLink :  ODObject
+{
+
+
+  ODPtr Content ();
+
+  IODLink Next();
+
+#ifdef __PRIVATE__
+
+  void  setContent(in ODPtr content);
+
+  void  setNext   (in IODLink next);
+
+#endif
+
+#ifdef __SOMIDL__
+  implementation
+  {
+     majorversion = 1; minorversion = 0;
+     functionprefix = IODLink;
+
+     override:
+        somInit,
+        somUninit;
+
+     releaseorder:
+        Content,
+        Next,
+#ifdef __PRIVATE__
+        setContent,
+        setNext;
+#else
+        dummy2,
+        dummy1;
+#endif
+
+        ODPtr fContent;
+        IODLink fNext;
+
+  };
+#endif //# __SOMIDL__
+};
+
+
+interface IODLinkedList :  ODObject
+{
+  IODLink First ();
+
+  void AddFirst (in ODPtr content);
+
+  void AddLast (in ODPtr content);
+
+  void Remove (in ODPtr content);
+
+  void RemoveAll ();
+
+  ODBoolean Contains (in ODPtr content);
+
+  ODULong Count ();
+
+
+#ifdef __SOMIDL__
+  implementation
+  {
+     majorversion = 1; minorversion = 0;
+     functionprefix = IODLinkedList;
+
+     override:
+        somInit,
+        somUninit;
+
+     releaseorder:
+        First,
+        AddFirst,
+        AddLast,
+        Remove,
+        RemoveAll,
+        Contains,
+        Count;
+
+        IODLink fRoot;
+
+  };
+#endif //# __SOMIDL__
+};
+
+
+
+#endif // _IODLinkedList_ (end of file)
+

@@ -1,0 +1,11 @@
+LIBRARY IODPage INITINSTANCE TERMINSTANCE
+DESCRIPTION 'PageLayout Class Library'
+DATA MULTIPLE NONSHARED LOADONCALL
+EXPORTS
+   PageLayoutCClassData
+   PageLayoutClassData
+   PageLayoutNewClass
+   M_PageLayoutCClassData
+   M_PageLayoutClassData
+   M_PageLayoutNewClass
+

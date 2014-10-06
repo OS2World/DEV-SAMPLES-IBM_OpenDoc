@@ -1,0 +1,144 @@
+//#====START_GENERATED_PROLOG======================================
+//#
+//#
+//#   COMPONENT_NAME: odtextpart
+//#
+//#   CLASSES: none
+//#
+//#   ORIGINS: 27
+//#
+//#
+//#   (C) COPYRIGHT International Business Machines Corp. 1995,1996
+//#   All Rights Reserved
+//#   Licensed Materials - Property of IBM
+//#   US Government Users Restricted Rights - Use, duplication or
+//#   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//#
+//#   IBM DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING
+//#   ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+//#   PURPOSE. IN NO EVENT SHALL IBM BE LIABLE FOR ANY SPECIAL, INDIRECT OR
+//#   CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF
+//#   USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+//#   OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
+//#   OR PERFORMANCE OF THIS SOFTWARE.
+//#
+//#====END_GENERATED_PROLOG========================================
+//#
+// @(#) 1.23 com/src/samples/text/iodtext.idl, odtextpart, od96os2, odos29712d 3/7/97 13:03:08 [3/21/97 17:45:27]
+#ifdef __PRIVATE__
+//#
+//#     File:           iodtext.idl
+//#
+//#     Contains:       IDL description of Text Part
+//#
+//#     Written by:     Rebecca Roberts
+//#
+//#     Copyright:      (c) 1996 by IBM Corp., all rights reserved.
+//#
+#endif
+
+
+#ifndef _TEXTPART_
+#define _TEXTPART_
+
+#include "iodbasec.idl"
+typedef somToken  TextMgr;
+
+interface M_TextPart;
+
+interface TextPart : BaseContainer
+{
+#ifdef __PRIVATE__
+      ODBoolean ImportFile(in ODFrame frame);
+      ODBoolean ExportFile();
+      ODShape   AcquireEmbeddedClipShape(in ODFacet facet);
+      void      GetFacetBoundingRect(in ODFacet facet, inout ODRect clipRect);
+#endif
+
+
+#ifdef __SOMIDL__
+        implementation
+        {
+                functionprefix = TextPart;
+                metaclass     = M_TextPart;
+                majorversion = 1;
+                minorversion = 0;
+                dllname = "iodtext.dll";
+
+        releaseorder:
+
+#ifdef __PRIVATE__
+          ImportFile,
+          ExportFile,
+          AcquireEmbeddedClipShape,
+          GetFacetBoundingRect;
+#else
+          Dummy1,
+          Dummy2,
+          Dummy3,
+          Dummy4;
+#endif
+
+        override:
+               somInit,
+               somUninit,
+               ReleaseAll,
+               InitPartFromStorage,
+               Initialize,
+               DrawContents,
+               ReadContents,
+               WriteContents,
+               WriteKindInfo,
+               WriteIconToSU,
+               HandleEvent,
+               InstallMenuItems,
+               HandleMenuEvent,
+               AdjustMenus,
+               FacetAdded,
+               FocusAcquired,
+               FocusLost,
+               HandleMouseClick,
+               HandleKeyEvent,
+               ChangeNotification;
+
+        passthru C_xh = ""
+         "class ODFacet ;"
+         "class ODFrame ;"
+         "class ODShape ;"
+         ;
+        passthru C_xh_after = ""
+         ;
+         passthru C_xih = ""
+         ;
+
+         // instance variables
+
+         ODMenuBar            fMenuBar;
+         ODSession            fSession;
+         ODTypeToken          fKeyFocus;
+         ODPart               fPartWrapper;
+         ODBoolean            fDraftReadOnly; // Indicates whether can change contents.
+         TextMgr*             fTextMgr;  // Text formatter
+         ODExtension          fScrollExt;  // Our copy of the ODScrollingExtension from parent
+
+        };
+#endif
+};
+
+interface M_TextPart : M_BaseContainer
+{
+
+#ifdef __SOMIDL__
+  implementation
+  {
+    functionprefix = M_TextPart;
+    override:
+      clsGetODPartHandlerName,
+      clsGetODPartHandlerDisplayName,
+      clsGetODPartKinds,
+      clsGetOLE2ClassId,
+      clsGetWindowsIconFileName;
+  };
+#endif
+};
+#endif  // _TEXTPART_

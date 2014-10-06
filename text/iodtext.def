@@ -1,0 +1,12 @@
+; @(#) 1.2 os2/src/samples/text/iodtext.def, odtextpart, od96os2, odos29712d 9/18/96 12:44:44 [3/21/97 17:45:24]
+LIBRARY iodtext INITINSTANCE TERMINSTANCE
+DESCRIPTION 'TextPart Class Library'
+DATA MULTIPLE NONSHARED LOADONCALL
+EXPORTS
+   TextPartCClassData
+   TextPartClassData
+   TextPartNewClass
+   M_TextPartCClassData
+   M_TextPartClassData
+   M_TextPartNewClass
+

@@ -1,0 +1,260 @@
+//====START_GENERATED_PROLOG======================================
+//
+//
+//   COMPONENT_NAME: odpagepart
+//
+//   CLASSES: none
+//
+//   ORIGINS: 82,27
+//
+//
+//   (C) COPYRIGHT International Business Machines Corp. 1995,1996
+//   All Rights Reserved
+//   Licensed Materials - Property of IBM
+//   US Government Users Restricted Rights - Use, duplication or
+//   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//   	
+//   IBM DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING
+//   ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+//   PURPOSE. IN NO EVENT SHALL IBM BE LIABLE FOR ANY SPECIAL, INDIRECT OR
+//   CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF
+//   USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+//   OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
+//   OR PERFORMANCE OF THIS SOFTWARE.
+//
+//====END_GENERATED_PROLOG========================================
+//
+//   @(#) 1.6 com/src/samples/pagepart/iodpage.rc, odpagepart, od96os2, odos29712d 11/8/96 19:32:54 [3/21/97 17:49:01]
+
+#ifdef _PLATFORM_OS2_
+#include <os2.h>
+#endif
+
+#ifdef _PLATFORM_WIN32_
+#include <winuser.h>
+#endif
+
+#include <ODRes.h>
+#include "IODPgRes.h"
+
+#ifdef _PLATFORM_WIN32_
+PAGEICON ICON IODPage.ico
+
+PageMenuID MENUEX
+BEGIN
+   MENUITEM "&Insert Page...", MenuInsertPage
+   MENUITEM "Insert Page at &End", MenuInsertPageLast
+   MENUITEM "&Remove Page...", MenuRemovePage
+   MENUITEM "&Go To Page...", MenuGoToPage
+   MENUITEM SEPARATOR
+#if 0   
+   POPUP  "Page Number Position", MenuPageNumberPosition
+   BEGIN
+      MENUITEM "Top Left", MenuPageNumberTopLeft
+      MENUITEM "Top Center", MenuPageNumberTopCenter
+      MENUITEM "Top Right", MenuPageNumberTopRight
+      MENUITEM "Bottom Left", MenuPageNumberBottomLeft
+      MENUITEM "Bottom Center", MenuPageNumberBottomCenter
+      MENUITEM "Bottom Right", MenuPageNumberBottomRight
+      MENUITEM "None", MenuPageNumberNone
+   END
+   POPUP    "Ruler Units", MenuRulerUnits
+   BEGIN
+      MENUITEM "Inches", MenuRulerInches
+      MENUITEM "Centimeters", MenuRulerCentimeters
+   END
+   POPUP    "Margin Line Type", MenuMarginLineType
+   BEGIN
+      MENUITEM "Dotted", MenuMarginDots
+      MENUITEM "Dashed", MenuMarginDash
+      MENUITEM "Dash-Dot", MenuMarginDashDot
+      MENUITEM "Dash-Double-Dot", MenuMarginDashDoubleDot
+      MENUITEM "Solid", MenuMarginSolid
+   END
+   POPUP    "Grid Line Type", MenuGridLineType
+   BEGIN
+      MENUITEM "Dotted", MenuGridDots
+      MENUITEM "Dashed", MenuGridDash
+      MENUITEM "Dash-Dot", MenuGridDashDot
+      MENUITEM "Dash-Double-Dot", MenuGridDashDoubleDot
+      MENUITEM "Solid", MenuGridSolid
+   END
+   MENUITEM SEPARATOR
+#endif   
+   MENUITEM "&Header...", MenuHeader
+   MENUITEM "&Footer...", MenuFooter
+END
+
+ColorMenuID MENUEX
+BEGIN
+   MENUITEM "&Background Color...", MenuBackgroundColor
+   MENUITEM "&Page Color...", MenuPageColor
+   MENUITEM "&Text Color...", MenuTextColor
+   MENUITEM "&Ruler Color...", MenuRulersColor
+   MENUITEM "&Margin Color...", MenuMarginsColor
+   MENUITEM "&Grid Color...", MenuGridColor
+END
+
+ChoosePageDlgValue DIALOG  30, 25, 150, 90
+STYLE WS_VISIBLE
+CAPTION "Choose Page..."
+BEGIN
+    CTEXT           "Enter Page Number:", -1, 25, 10, 100, 10
+    EDITTEXT        ChoosePageEntryField, 50, 30, 50, 12, ES_RIGHT | ES_NUMBER
+    DEFPUSHBUTTON   "OK", IDOK, 20, 65, 40, 15
+    PUSHBUTTON      "Cancel", IDCANCEL, 90, 65, 40, 15
+END
+
+GetTextDlgValue DIALOG  30, 25, 150, 90
+STYLE WS_VISIBLE
+CAPTION "Header/Footer"
+BEGIN
+    CTEXT           "Enter Text String:", -1, 25, 10, 100, 10
+    EDITTEXT        GetTextEntryField, 25, 30, 100, 12, ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "OK", IDOK, 20, 65, 40, 15
+    PUSHBUTTON      "Cancel", IDCANCEL, 90, 65, 40, 15
+END
+#endif //_PLATFORM_WIN32_
+
+
+#ifdef _PLATFORM_OS2_
+ICON PAGEICON IODPage.ico
+
+MENU PageMenuID PRELOAD
+BEGIN
+   MENUITEM "~Insert Page...", MenuInsertPage, MIS_TEXT
+   MENUITEM "Insert Page at ~End", MenuInsertPageLast, MIS_TEXT
+   MENUITEM "~Remove Page...", MenuRemovePage, MIS_TEXT
+   MENUITEM "~Go To Page...", MenuGoToPage, MIS_TEXT
+   MENUITEM "", MenuSeparator, MIS_SEPARATOR
+   SUBMENU  "Page Number Position", MenuPageNumberPosition, MIS_TEXT
+   BEGIN
+      MENUITEM "Top Left", MenuPageNumberTopLeft, MIS_TEXT
+      MENUITEM "Top Center", MenuPageNumberTopCenter, MIS_TEXT
+      MENUITEM "Top Right", MenuPageNumberTopRight, MIS_TEXT
+      MENUITEM "Bottom Left", MenuPageNumberBottomLeft, MIS_TEXT
+      MENUITEM "Bottom Center", MenuPageNumberBottomCenter, MIS_TEXT
+      MENUITEM "Bottom Right", MenuPageNumberBottomRight, MIS_TEXT
+      MENUITEM "None", MenuPageNumberNone, MIS_TEXT
+   END
+   SUBMENU  "Ruler Units", MenuRulerUnits, MIS_TEXT
+   BEGIN
+      MENUITEM "Inches", MenuRulerInches, MIS_TEXT
+      MENUITEM "Centimeters", MenuRulerCentimeters, MIS_TEXT
+   END
+   SUBMENU  "Margin Line Type", MenuMarginLineType, MIS_TEXT
+   BEGIN
+      MENUITEM "Dotted", MenuMarginDots, MIS_TEXT
+      MENUITEM "Dashed", MenuMarginDash, MIS_TEXT
+      MENUITEM "Dash-Dot", MenuMarginDashDot, MIS_TEXT
+      MENUITEM "Dash-Double-Dot", MenuMarginDashDoubleDot, MIS_TEXT
+      MENUITEM "Solid", MenuMarginSolid, MIS_TEXT
+   END
+   SUBMENU  "Grid Line Type", MenuGridLineType, MIS_TEXT
+   BEGIN
+      MENUITEM "Dotted", MenuGridDots, MIS_TEXT
+      MENUITEM "Dashed", MenuGridDash, MIS_TEXT
+      MENUITEM "Dash-Dot", MenuGridDashDot, MIS_TEXT
+      MENUITEM "Dash-Double-Dot", MenuGridDashDoubleDot, MIS_TEXT
+      MENUITEM "Solid", MenuGridSolid, MIS_TEXT
+   END
+   MENUITEM "", MenuSeparator2, MIS_SEPARATOR
+   MENUITEM "~Header...", MenuHeader, MIS_TEXT
+   MENUITEM "~Footer...", MenuFooter, MIS_TEXT
+END
+
+MENU ColorMenuID PRELOAD
+BEGIN
+   MENUITEM "~Background Color...", MenuBackgroundColor, MIS_TEXT
+   MENUITEM "~Page Color...", MenuPageColor, MIS_TEXT
+   MENUITEM "~Text Color...", MenuTextColor, MIS_TEXT
+   MENUITEM "~Ruler Color...", MenuRulersColor, MIS_TEXT
+   MENUITEM "~Margin Color...", MenuMarginsColor, MIS_TEXT
+   MENUITEM "~Grid Color...", MenuGridColor, MIS_TEXT
+END
+
+DLGTEMPLATE ChoosePageDlgValue LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Choose Page...", ChoosePageDlgValue, 30, 25, 150, 90, WS_VISIBLE,
+            FCF_SYSMENU | FCF_TITLEBAR
+    BEGIN
+        CTEXT           "Enter Page Number:", UNUSED, 25, 70, 100, 10,
+                        DT_VCENTER
+        SPINBUTTON      ChoosePageSpinButton, 50, 48, 50, 12, SPBS_NUMERICONLY |
+                        SPBS_JUSTRIGHT | SPBS_MASTER | WS_GROUP
+        DEFPUSHBUTTON   "OK", DID_OK, 20, 10, 40, 15
+        PUSHBUTTON      "Cancel", DID_CANCEL, 90, 10, 40, 15
+    END
+END
+
+DLGTEMPLATE GetTextDlgValue LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Header/Footer", GetTextDlgValue, 30, 25, 150, 90, WS_VISIBLE,
+            FCF_SYSMENU | FCF_TITLEBAR
+    BEGIN
+        CTEXT           "Enter Text String:", UNUSED, 25, 70, 100, 10,
+                        DT_VCENTER
+        ENTRYFIELD      "", GetTextEntryField, 25, 48, 100, 12, WS_GROUP
+        DEFPUSHBUTTON   "OK", DID_OK, 20, 10, 40, 15
+        PUSHBUTTON      "Cancel", DID_CANCEL, 90, 10, 40, 15
+    END
+END
+#endif //_PLATFORM_OS2_
+
+
+STRINGTABLE
+BEGIN
+// begin strings for warning and error message boxes
+   GoToPageErrorMsg    ,"Invalid Page Number!"
+   MaxPageString       ,"Unable to comply!  Maximum number of pages already reached."
+// end strings for warning and error message boxes
+
+// begin strings for menu items
+#ifdef _PLATFORM_WIN32_
+   PageMenuString        ,"&Page"
+   ColorMenuString       ,"&Colors"
+   FillPageString        ,"&Fill Entire Page"
+   SnapToGridString      ,"Snap To &Grid"
+   ShowGridString        ,"Alignment &Grid"
+   ShowRulersString      ,"&Rulers"
+   ShowMarginsString     ,"&Margins"
+   RefreshString         ,"Re&fresh"
+   PartInfoString        ,"&Page Layout Information"
+#endif //_PLATFORM_WIN32_
+
+#ifdef _PLATFORM_OS2_
+   PageMenuString        ,"~Page"
+   ColorMenuString       ,"~Colors"
+   FillPageString        ,"~Fill Entire Page"
+   SnapToGridString      ,"Snap To ~Grid"
+   ShowGridString        ,"Alignment ~Grid"
+   ShowRulersString      ,"~Rulers"
+   ShowMarginsString     ,"~Margins"
+   RefreshString         ,"Re~fresh"
+   PartInfoString        ,"~Page Layout Information"
+#endif //_PLATFORM_OS2_
+
+// end strings for menu items
+
+#if 0
+// begin strings for binding information
+   kPartHandlerDisplayName         ,"Page Layout"
+   kPartHandlerKindDisplayName     ,"Page Layout Kind"
+   kPartHandlerCategoryDisplayName ,"Page Layout"
+// end strings for binding information
+
+// begin strings for warning and error message boxes
+   WrongViewTypeMsg    ,"Page Layout doesn't support this view type; returning to frame view"
+   IconsNotFoundMsg    ,"Error creating icons; returning to frame view"
+#endif
+
+// begin strings for dialog box title bar texts
+   GoToPageDlgTitle    ,"Go To Page..."
+   InsertPageDlgTitle  ,"Insert Blank Page After Page..."
+   RemovePageDlgTitle  ,"Remove Page..."
+   HeaderDlgTitle      ,"Header"
+   FooterDlgTitle      ,"Footer"
+// end strings for dialog box title bar texts
+
+END
+

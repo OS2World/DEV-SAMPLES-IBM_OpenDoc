@@ -1,0 +1,136 @@
+// @(#) 1.5 com/src/samples/grafpart/iodgfigr.idl, odgrafpart, od96os2, odos29712d 2/7/97 17:41:43 [3/21/97 17:47:49]
+//#====START_GENERATED_PROLOG======================================
+//#
+//#
+//#   COMPONENT_NAME: odgrafpart
+//#
+//#   CLASSES: none
+//#
+//#   ORIGINS: 27
+//#
+//#
+//#   (C) COPYRIGHT International Business Machines Corp. 1995,1996
+//#   All Rights Reserved
+//#   Licensed Materials - Property of IBM
+//#   US Government Users Restricted Rights - Use, duplication or
+//#   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//#
+//#   IBM DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING
+//#   ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+//#   PURPOSE. IN NO EVENT SHALL IBM BE LIABLE FOR ANY SPECIAL, INDIRECT OR
+//#   CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF
+//#   USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+//#   OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
+//#   OR PERFORMANCE OF THIS SOFTWARE.
+//#
+//#====END_GENERATED_PROLOG========================================
+
+#ifndef _GRAFPART_CONTENT_FIGR_
+#define _GRAFPART_CONTENT_FIGR_
+
+// support OD types
+#ifndef _ODTYPESB_
+#include <ODTypesB.idl>
+#endif  // _ODTYPESB_
+
+// subclass from ContentObject
+#ifndef BC_ContentObject
+#include <iodbcobj.idl>
+#endif  // BC_ContentObject
+
+
+//==============================================================================
+// Classes defined in this interface
+//==============================================================================
+
+interface   ContentGrafPartFigr;
+
+//==============================================================================
+// Classes used in this interface
+//==============================================================================
+
+interface   GrafPart;
+interface   ALinkedList;
+typedef     somToken    HDraw;
+
+#ifdef _PLATFORM_OS2_
+typedef     somToken    POINTL;     // for OS/2 long point buffers
+#endif  // _PLATFORM_OS2_
+
+
+//==============================================================================
+// ContentGrafPartFigr
+//==============================================================================
+
+interface ContentGrafPartFigr :  ContentObject
+{
+#ifdef __PRIVATE__
+    GrafPart        Initialize          ( in  ODFrame         frame,
+                                          in  ODPoint         point );
+
+    void            Uninitialize        ( );
+
+    void            Update              ( in  ODPoint         point );
+
+    void            AdjustBoundingRect  ( );
+
+    ODBoolean       ContainsPoint       ( in  ODPoint         point );
+
+    ODBoolean       Draw                ( in  HDraw           hDraw );
+
+    attribute                                 ODPoint         fPt1;    // all figures have an origin
+    attribute       long                fColor ;        // color value
+
+#endif  // __PRIVATE__
+
+#ifdef __SOMIDL__
+
+    implementation
+    {
+        functionprefix = ContentGrafPartFigr;
+
+        override:
+            somInit,
+            somUninit,
+            WriteContents,
+            ReadContents,
+            DeleteContents,
+            MoveBy,
+            Resize;
+
+        releaseorder:
+#ifdef __PRIVATE__
+            _get_fPt1,
+            _set_fPt1,
+            _get_fColor,
+            _set_fColor,
+            Initialize,
+            Uninitialize,
+            Update,
+            AdjustBoundingRect,
+            ContainsPoint,
+            Draw;
+
+#endif  // __PRIVATE__
+
+        majorversion = 1;
+        minorversion = 2;
+
+        passthru C_xih =
+            "#define VARIABLE_MACROS"
+            "#define METHOD_MACROS" ;
+
+#if defined(__PRIVATE__) && defined (_PLATFORM_OS2_)
+        POINTL pPt1;     // long point buffer for OS/2 Gpi calls
+#endif  // __PRIVATE__  && _PLATFORM_OS2_
+
+    };
+
+#endif  // __SOMIDL__
+};
+
+
+#endif  // _GRAFPART_CONTENT_FIGR_
+
+// end of file  *****************************************************
+

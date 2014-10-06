@@ -1,0 +1,106 @@
+; @(#) 1.8 os2/src/samples/grafpart/iodgraph.def, odgrafpart, od96os2, odos29712d 10/4/96 18:09:43 [3/21/97 17:45:22]
+;
+LIBRARY iodgraph INITINSTANCE TERMINSTANCE
+DESCRIPTION 'GrafPart Class Library'
+DATA MULTIPLE NONSHARED LOADONCALL
+EXPORTS
+; from CPPFILT:
+;
+;From object file:  G:\od\build\os2\ship\samples\src\grafpart\iodgraph.obj
+  ;PUBDEFs (Symbols available from object file):
+    GrafPartHandleMouseMotionEnd
+    GrafPartHandleRefresh
+    GrafPartHandleMouseMotionStart
+    GrafPartInitialize
+    ;GetPoint(Environment*,ODFacet*,tagEVENTRECORD*,ODPoint*)
+    GetPoint__FP11EnvironmentP7ODFacetP14tagEVENTRECORDP7ODPoint
+    M_GrafPartclsGetODPartKinds
+    GrafPartsomUninit
+    M_GrafPartclsGetOLE2ClassId
+    GrafPartGetContentObjectFromObjType
+    M_GrafPartclsGetODPartHandlerName
+    ;FluffRect(ODRect*)
+    FluffRect__FP6ODRect
+    GrafPartHandleMouseClick
+    GrafPartWriteKindInfo
+    GrafPartCClassData
+    GrafPartAddIntrinsic
+    ;FirstFacet(Environment*,ODFrame*)
+    FirstFacet__FP11EnvironmentP7ODFrame
+    GrafPartInstallMenuItems
+    M_GrafPartNewClass
+    GrafPartReadKindInfo
+    GrafPartDrawContents
+    M_GrafPartclsGetODPartHandlerDisplayName
+    SOMInitModule
+    M_GrafPartclsGetWindowsIconFileName
+    GrafPartHandleMenuEvent
+    M_GrafPartClassData
+    GrafPartHandleMouseMotionLBDown
+    GrafPartNewClass
+    M_GrafPartCClassData
+    GrafPartUpdateIntrinsic
+    GrafPartClassData
+    GrafPartsomInit
+;From object file:  G:\od\build\os2\ship\samples\src\grafpart\iodgfigr.obj
+  ;PUBDEFs (Symbols available from object file):
+    ContentGrafPartFigrsomInit
+    ContentGrafPartFigrResize
+    ContentGrafPartFigrUninitialize
+    ContentGrafPartFigrNewClass
+    ContentGrafPartFigrMoveBy
+    ContentGrafPartFigr_get_fPt1
+    ContentGrafPartFigrDraw
+    ContentGrafPartFigrReadContents
+    ContentGrafPartFigrAdjustBoundingRect
+    ContentGrafPartFigrCClassData
+    ContentGrafPartFigr_set_fPt1
+    ContentGrafPartFigrsomUninit
+    ContentGrafPartFigrContainsPoint
+    ContentGrafPartFigrUpdate
+    ContentGrafPartFigrDeleteContents
+    ContentGrafPartFigrClassData
+    ContentGrafPartFigrInitialize
+    ContentGrafPartFigrWriteContents
+;From object file:  G:\od\build\os2\ship\samples\src\grafpart\iodgpoin.obj
+  ;PUBDEFs (Symbols available from object file):
+    ContentGrafPartPoinDraw
+    ContentGrafPartPoinCClassData
+    ContentGrafPartPoinContainsPoint
+    ContentGrafPartPoinResize
+    ContentGrafPartPoinClassData
+    ContentGrafPartPoinNewClass
+    ContentGrafPartPoinMoveBy
+    ContentGrafPartPoinAdjustBoundingRect
+    ContentGrafPartPoinsomInit
+;From object file:  G:\od\build\os2\ship\samples\src\grafpart\iodgline.obj
+  ;PUBDEFs (Symbols available from object file):
+    ContentGrafPartLineResize
+    ContentGrafPartLine_set_fPt2
+    ContentGrafPartLineWriteContents
+    ContentGrafPartLineContainsPoint
+    ContentGrafPartLinesomUninit
+    ContentGrafPartLineAdjustBoundingRect
+    ContentGrafPartLineClassData
+    ContentGrafPartLineDraw
+    ContentGrafPartLineMoveBy
+    ContentGrafPartLineReadContents
+    ContentGrafPartLinesomInit
+    ContentGrafPartLineDeleteContents
+    ContentGrafPartLineNewClass
+    ContentGrafPartLineInitialize
+    ContentGrafPartLineCClassData
+    ContentGrafPartLineUninitialize
+    ContentGrafPartLine_get_fPt2
+    ContentGrafPartLineUpdate
+;From object file:  G:\od\build\os2\ship\samples\src\grafpart\iodgrect.obj
+  ;PUBDEFs (Symbols available from object file):
+    ContentGrafPartRectsomInit
+    ContentGrafPartRectContainsPoint
+    ContentGrafPartRectDraw
+    ContentGrafPartRectClassData
+    ContentGrafPartRectNewClass
+    ContentGrafPartRectCClassData
+;
+; end of file
+

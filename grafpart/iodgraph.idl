@@ -1,0 +1,264 @@
+// @(#) 1.33 com/src/samples/grafpart/iodgraph.idl, odgrafpart, od96os2, odos29712d 2/14/97 10:41:01 [3/21/97 17:45:26]
+//#====START_GENERATED_PROLOG======================================
+//#
+//#
+//#   COMPONENT_NAME: odgrafpart
+//#
+//#   CLASSES: none
+//#
+//#   ORIGINS: 27
+//#
+//#
+//#   (C) COPYRIGHT International Business Machines Corp. 1995,1996
+//#   All Rights Reserved
+//#   Licensed Materials - Property of IBM
+//#   US Government Users Restricted Rights - Use, duplication or
+//#   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//#
+//#   IBM DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING
+//#   ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+//#   PURPOSE. IN NO EVENT SHALL IBM BE LIABLE FOR ANY SPECIAL, INDIRECT OR
+//#   CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF
+//#   USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+//#   OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
+//#   OR PERFORMANCE OF THIS SOFTWARE.
+//#
+//#====END_GENERATED_PROLOG========================================
+
+
+// *********************************************************************
+//   Contains:  Class definition for a 2D-Drawing Container Part
+// *********************************************************************
+
+
+// This file contains the IDL to define either the class GrafPart
+// or the class ScriptableGraphPart (based on the defined symbol
+// _Scriptable_GP_).  Because of the way the SOM compiler names
+// its output files (.xh and .xih) the source file name must reflect the
+// distinct classes.  Thus this file resides in two places in the source:
+// as grafpart/iodgraph.idl and as scrgraph/iodscrgp.idl  The primary
+// difference in the two classes is the base class.  grafpart inherits
+// from BaseContainer, ScriptableGraphPart inherits from ScriptableBaseContainer
+
+// the following define is modified by the make process when this
+// file is copied into scrgraph/iodscrgp.idl
+#undef _Scriptable_GP_
+
+
+#ifndef _GRAFPART_
+#define _GRAFPART_
+
+// include definition for base class
+#ifndef _Scriptable_GP_
+#include <iodbasec.idl>
+#else
+#include <iodscrbc.idl>
+#endif
+
+// support enum ODActionType
+#ifndef _ODTYPESB_
+#include <ODTypesB.idl>
+#endif
+
+
+//======================================================================
+// Classes defined in this interface
+//======================================================================
+
+#ifndef _Scriptable_GP_
+interface   GrafPart;
+interface   M_GrafPart;
+#else
+interface   ScriptableGraphPart ;
+interface   M_ScriptableGraphPart ;
+#endif
+
+
+//======================================================================
+// Classes used by this interface
+//======================================================================
+
+interface   BaseContainer;
+interface   M_BaseContainer;
+interface   ODFacet;
+interface   ODMenuBar;
+interface   ODSession;
+interface   ODStorageUnit;
+interface   ContentGrafPartFigr;
+interface   ContentGrafPartPoin;
+interface   ContentGrafPartLine;
+interface   ContentGrafPartRect;
+interface   ContentGrafPartText;
+//interface   ContentGrafPartElli;
+//interface   ContentGrafPartCirc;
+//interface   ContentGrafPartPlin;
+//interface   ContentGrafPartPgon;
+//interface   ContentGrafPartFree;
+//interface   ContentGrafPartImag;
+
+
+//==============================================================================
+// Constants and type definitions to be emitted (maybe)
+//==============================================================================
+
+#if defined(__SOMIDL__) && defined(EMIT_GRAFPART)
+#pragma somemittypes on
+#else
+#pragma somemittypes off
+#endif
+
+#if   defined(_PLATFORM_WIN32_)
+    typedef HDC     HDraw;
+#elif defined(_PLATFORM_OS2_)
+    typedef HPS     HDraw;
+#endif // _PLATFORM_???_
+
+    typedef ODULong COType;     //  define a name for the specific type of Content Object type
+
+#pragma somemittypes off
+
+
+//======================================================================
+// GrafPart Implementation
+//======================================================================
+
+#ifndef _Scriptable_GP_
+interface GrafPart : BaseContainer
+#else
+interface ScriptableGraphPart : ScriptableBaseContainer
+#endif
+{
+    ODBoolean   HandleRefresh( );
+
+#ifdef __PRIVATE__
+    ODBoolean   Reset( );
+
+    ODBoolean   AddIntrinsic(       in  ODFrame         frame,
+                                    in  COType          cotype);
+
+    ODBoolean   UpdateIntrinsic(    in  ODFrame         frame,
+                                    in  ODPoint         point);
+#endif  // __PRIVATE__
+
+
+#ifdef __SOMIDL__
+    implementation
+    {
+
+#ifndef _Scriptable_GP_
+        dllname        = "iodgraph.dll";
+        functionprefix = GrafPart;
+        metaclass      = M_GrafPart;
+#else
+        dllname        = "iodscrgp.dll" ;
+        functionprefix = ScriptableGraphPart ;
+        metaclass      = M_ScriptableGraphPart ;
+#endif
+
+        override:
+            somInit,
+            somUninit,
+            Initialize,
+            InstallMenuItems,
+            HandleMenuEvent,
+            HandleMouseMotionStart,
+            HandleMouseMotionEnd,
+            HandleMouseMotionLBDown,
+            HandleMouseClick,
+            MoveSelectionToFront,
+            MoveSelectionToBack,
+            PasteSelection,
+            ReadKindInfo,
+            WriteKindInfo,
+            GetContentObjectFromObjType,
+            DrawContents,
+#ifdef _Scriptable_GP_
+            AcquireExtension,
+            HandleEvent,
+#endif
+            WriteIconToSU;
+
+        releaseorder:
+            HandleRefresh,
+#ifdef __PRIVATE__
+            Reset,
+            AddIntrinsic,
+            UpdateIntrinsic;
+#else
+            dummy1,
+            dummy2,
+            dummy3;
+#endif  // __PRIVATE__
+
+        majorversion = 1;
+        minorversion = 2;
+
+        passthru C_xih =
+            "#define VARIABLE_MACROS"
+            "#define METHOD_MACROS" ;
+
+        // Display related variables
+        ODCanvas        fCanvas;
+        ODFacet         fFacet;
+
+        // General public variables
+        ODMenuBar       fMenuBar;               // Cache Base Menubar
+        ODSession       fSession;               // Cache Session pointer
+        ODPart          fPartWrapper;
+
+        // Private variables
+#ifdef __PRIVATE__
+        ODULong         fAction;                // local var to track current action
+        ODActionType    fActionType;            // local var to track current action type
+        ODPoint         fPt;                    // local var to keep a point buffer
+        ContentObject   fCurrObj;               // local var to track current object in progress
+        COType          fCurrObjType;           // local var to track type of current object in progress
+        ODShape         fCurrShape,fTempShape;  // local vars to keep shape buffers
+        ODRect          fBBox;                  // local var to track a figure's bounding box
+#endif  // __PRIVATE__
+
+    };  // end implementation section
+
+#endif  // __SOMIDL__
+
+};      // end interface definition
+
+
+// ******************************************************************
+
+#ifndef _Scriptable_GP_
+interface M_GrafPart : M_BaseContainer
+#else
+interface M_ScriptableGraphPart : M_ScriptableBaseContainer
+#endif
+
+{
+
+#ifdef __SOMIDL__
+   implementation
+   {
+
+#ifndef _Scriptable_GP_
+       functionprefix = M_GrafPart;
+#else
+       functionprefix = M_ScriptableGraphPart ;
+#endif
+
+       override:
+           clsGetODPartHandlerName,
+           clsGetODPartHandlerDisplayName,
+           clsGetODPartKinds,
+           clsGetOLE2ClassId,
+           clsGetWindowsIconFileName;
+   };
+
+#endif  // _SOMIDL__
+};
+
+
+
+
+#endif  // _GRAFPART_
+
+// end of file  *****************************************************
+

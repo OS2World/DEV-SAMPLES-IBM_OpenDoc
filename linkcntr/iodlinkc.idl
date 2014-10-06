@@ -1,0 +1,200 @@
+//#====START_GENERATED_PROLOG======================================
+//#
+//#
+//#   COMPONENT_NAME: odlinkcntr
+//#
+//#   CLASSES: none
+//#
+//#   ORIGINS: 82,27
+//#
+//#
+//#   (C) COPYRIGHT International Business Machines Corp. 1995,1996
+//#   All Rights Reserved
+//#   Licensed Materials - Property of IBM
+//#   US Government Users Restricted Rights - Use, duplication or
+//#   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//#   	
+//#   IBM DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING
+//#   ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+//#   PURPOSE. IN NO EVENT SHALL IBM BE LIABLE FOR ANY SPECIAL, INDIRECT OR
+//#   CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF
+//#   USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+//#   OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
+//#   OR PERFORMANCE OF THIS SOFTWARE.
+//#
+//#====END_GENERATED_PROLOG========================================
+//#
+/* @(#) 1.16 com/src/samples/linkcntr/iodlinkc.idl, odlinkpart, od96os2, odos29712d 3/18/97 10:47:13 [3/21/97 17:45:25] */
+
+#ifndef _LinkContainer
+#define _LinkContainer
+
+#ifndef _CONTAINER_
+#include <iodbasec.idl>
+#endif
+
+
+
+//======================================================================
+// Classes defined in this interface
+//======================================================================
+
+interface  LinkContainer;
+interface  M_LinkContainer;
+
+//======================================================================
+// Classes used by this interface
+//======================================================================
+
+interface  BaseContainer;
+interface  M_BaseContainer;
+interface ODStorageUnit;
+interface ODFacet;
+interface ContentObject;
+interface ODLinkSource;
+interface ODLink;
+interface ODSession;
+interface ALink;
+interface ALinkedList;
+
+
+//======================================================================
+// Type definitions used by this interface
+//======================================================================
+
+#pragma somemittypes on
+
+typedef struct tagsourceoflink
+{
+   ODLinkSource   linkSource;
+   ODULong        num;
+   ODUpdateID     change;
+   ContentObject  *sourceObjects;
+
+} SourceOfLink;
+
+
+typedef struct tagdestoflink
+{
+   ODLink     link;
+   ODULong        num;
+   ContentObject  *destObjects;
+   ODFrame        containingFrame;
+   ODPoint    destinationPoint;
+   ODLinkInfo info;
+
+} DestOfLink, *P_DestOfLink;
+
+
+#pragma somemittypes off
+
+//======================================================================
+// LinkContainer Implementation
+//======================================================================
+
+interface LinkContainer : BaseContainer
+{
+
+        // Linking methods
+
+        void    WriteLinkSpec (in ODStorageUnit toSU);
+
+        void      GetAllLinkSources(       in ContentObject  cObj,
+                                           in ALinkedList    l);
+
+        void      GetAllLinkDestinations(  in ContentObject  cObj,
+                                           in ALinkedList    l);
+
+        void      WriteSingleLink(         in void          *sourceoflink,
+                                           in ODUpdateID     change);
+
+        void      BreakAllLinks (in    ContentObject cObj);
+
+	ODBoolean DoLinkInfo(in ODFrame frame);
+
+#ifdef __SOMIDL__
+  implementation
+  {
+        dllname = "iodlinkc.dll";
+        functionprefix = LinkContainer;
+        metaclass      = M_LinkContainer;
+        majorversion = 0;
+        minorversion = 0;
+
+        override:
+                CreateLink,
+                LinkUpdated,
+                RevealLink,
+                LinkStatusChanged,
+                PasteSelectionAs,
+                Drop,
+                ChangeNotification,
+                DeleteSelection,
+                StartDrag,
+
+                CompleteMoveOperation,
+                CompleteResizeOperation,
+		  
+		HandleMenuEvent,
+
+                WriteSingleFrame,
+                WriteContents,
+                ReadContents,
+                AdjustMenus,
+                Initialize,
+                FrameShapeChanged,
+                somInit,
+                somUninit;
+
+        releaseorder:
+                WriteLinkSpec,
+                PasteSelectionAs,
+                GetAllLinkSources,
+                GetAllLinkDestinations,
+                WriteSingleLink,
+                BreakAllLinks,
+		DoLinkInfo;
+
+                ODSession fSession;
+                ODPart fPartWrapper;
+
+                // Linking stuff
+                ALinkedList  fAllLinkSources;
+                ALinkedList  fAllLinkDestinations;
+                void         *floatingDest;
+
+                ALinkedList  fLastSavedList;
+
+
+  }; // end implementation section
+
+#endif //__SOMIDL__
+
+}; // end interface definition
+
+
+// ******************************************************************
+
+interface M_LinkContainer : M_BaseContainer
+{
+
+#ifdef __SOMIDL__
+  implementation
+  {
+    functionprefix = M_LinkContainer;
+
+    override:
+        clsGetODPartHandlerName,
+        clsGetODPartHandlerDisplayName,
+        clsGetODPartKinds,
+        clsGetOLE2ClassId,
+        clsGetWindowsIconFileName;
+  };
+
+#endif  // _SOMIDL__
+};
+
+#endif //_LinkContainer_
+
+
+

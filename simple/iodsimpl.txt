@@ -1,0 +1,54 @@
+Description:
+
+    The Simple part handler is a sample which demonstrates basic 
+    part handler implementation. It subclasses from ODPart and 
+    shows the basics of registration, internalization, externalization,
+    drawing, and event handling. It also supports the display of
+    different view types (i.e. frame, small icon, large icon and thumbnail).
+
+    The Simple part does not support containment of other frames
+    within it. For an example of containment see the Base Container part
+    sample.
+
+Files:
+
+    iodsimpl.rme   --  This file.
+    iodsimpl.idl   --  SOM IDL definitions for SOM class SimplePart and
+                       meta class M_SimplePart.
+    iodsimpl.cpp   --  Class member functions
+    iodsimpl.h     --  Header file
+    iodsimpl.msg   --  English message file
+    iodsimpl.ico   --  Icon file
+    iodsimpd.ico   --  Document Icon File (NT only)
+    iodsimpe.ico   --  Editor Icon File (NT only)
+    iodsimps.ico   --  Stationery Icon File (NT only)
+    iodsimpl.rc    --  Resource file
+    iodsimpl.def   --  Library definitions
+    makefile       --  NMAKE file (To build part run: nmake)
+
+Usage:
+
+    The Simple part handler supports the Document, View and Help menues 
+    provided by the OpenDoc document shell. Because Simple part does not have 
+    modifiable intrinsic content, it disables the Edit menu items. 
+
+    The View In Window item of the View menu is enabled only when the part
+    is embedded in a document. It is disabled when the part is displayed as a 
+    root frame.
+
+    Another way of displaying an embedded Simple part in its own window is to
+    double click on the part with the left mouse button. This feature is 
+    not supported on AIX.
+                                  
+    In addition to the supported menu items, Simple part owns a "Show As"
+    popup menu. This popup menu allows the user to change the view type 
+    displayed by the part. It is enabled only when the part is displayed in
+    an embedded frame. To display the popup menu press the rightmost mouse 
+    button while the part is active. 
+
+    When an embedded SimplePart is displayed as an icon or thumbnail, it
+    cannot be activated. It can only be selected. Once selected, the only
+    way to change the view type of a part displayed as icon/thumbnail is
+    through its Properties Notebook. To display the Properties Notebook
+    of the part, select the part and choose the Selection Properties item
+    of the Edit menu.

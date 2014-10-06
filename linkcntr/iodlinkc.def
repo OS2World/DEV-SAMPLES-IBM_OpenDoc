@@ -1,0 +1,11 @@
+LIBRARY iodlinkc INITINSTANCE TERMINSTANCE
+DESCRIPTION 'LinkContainer Class Library'
+DATA MULTIPLE NONSHARED LOADONCALL
+EXPORTS
+   LinkContainerCClassData
+   LinkContainerClassData
+   LinkContainerNewClass
+   M_LinkContainerCClassData
+   M_LinkContainerClassData
+   M_LinkContainerNewClass
+

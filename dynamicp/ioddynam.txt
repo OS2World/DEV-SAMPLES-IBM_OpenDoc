@@ -1,0 +1,83 @@
+Dynamic Part Demonstration:
+
+This part handler is being provided by IBM for several purposes:
+1) For use in demos of OpenDoc and its capabilities
+2) As sample source code demonstrating various programming techniques involved
+in developing OpenDoc part handlers
+3) As an example of the cross-platform programming capabilities of OpenDoc.
+
+This part handler demonstrates various combinations of shear and rotation controlled by
+menu selections.  It may be used either as a stand-alone application (as
+its own root part), or as a component of a larger document (when embedded
+within another part handler).
+
+How to Build:
+
+    To build this part you will need the OpenDoc Release 1.1 toolkit.
+
+    From the dynamicp source directory run
+
+    nmake
+
+    To register the part with OpenDoc, run
+
+    nmake ForceRegistry
+
+Prerequisites:
+
+    1) SimplePart's runtime, iodsimpl.dll.
+    2) This code uses IBM OpenClass, and so must be compiled with
+       IBM's VisualAge C++ compiler.
+
+Usage:
+
+    To run the DynamicPart as a root part, issue the command:
+
+    docshell -k DynamicPart
+
+    Once the part is loaded, select the menu item
+    "Dynamic Part->Rotation->Start" to make the part turn within its frame.
+    Selecting the menu item "Dynamic Part->Rotation->Direction->Counter clockwise"
+    will make the part turn in the opposite direction.  You can similarly
+    affect "Horizontal Shear" and "Vertical Shear".  The menu item
+    "Dynamic Part->Reset" will return the part to its initial state and orientation.
+
+    To change the text that is scrolled, copy the new text to the clipboard and
+    select Edit->Paste for the DynamicPart.
+
+
+Design Notes:
+
+    This part subclasses from SimplePart.  On Windows, this part also uses a
+    modified version of the Focuslib utilities.  The modified source is
+    called "myfocus.cpp".
+
+    From a programming standpoint, this part handler demonstrates the following
+    features:
+     - Platform independence using IBMs OpenClass libraries
+     - OpenDoc transformation matrices,
+     - Timers,
+     - Window Clipping,
+     - Frame Negotiation,
+     - Menus,
+     - Event Handling, and
+     - Persistence.
+
+Known Restrictions:
+
+    Some combinations of angles for Rotation, Horizontal shear and Vertical
+    Shear will raise an exception within the part handler.  On Windows, the
+    DOCSHELL will simply exit without saving changes.  OS/2 will first
+    display a message box with a warning message.  On Windows NT and 95,
+    the Horizontal Shear and Vertical Shear menus are not installed.  To
+    install them, remove the #ifdef _PLATFORM_OS2_ statements and the
+    corresponding #endifs from INSTLMNU.C and MADJMENU.C in DYNAMICP\BMENU,
+    and recompile the part.
+
+    On Windows95 rotating and shearing are not supported.  Selecting the
+    rotation menu item will cause the contents to be scaled and translated
+    instead.
+
+    The bitmap does not print on Windows NT and 95.
+
+

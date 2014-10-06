@@ -1,0 +1,250 @@
+/* @(#) 1.14 com/src/samples/basecntr/iodbcobj.idl, odbasepart, od96os2, odos29712d 2/20/97 18:26:01 [3/21/97 17:45:28] */
+
+//#====START_GENERATED_PROLOG======================================
+//#
+//#
+//#   COMPONENT_NAME: odcore
+//#
+//#   CLASSES: none
+//#
+//#   ORIGINS: 82,27
+//#
+//#
+//#   (C) COPYRIGHT International Business Machines Corp. 1995,1996
+//#   All Rights Reserved
+//#   Licensed Materials - Property of IBM
+//#   US Government Users Restricted Rights - Use, duplication or
+//#   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//#
+//#   IBM DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING
+//#   ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+//#   PURPOSE. IN NO EVENT SHALL IBM BE LIABLE FOR ANY SPECIAL, INDIRECT OR
+//#   CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF
+//#   USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+//#   OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
+//#   OR PERFORMANCE OF THIS SOFTWARE.
+//#
+//#====END_GENERATED_PROLOG========================================
+//#
+
+#ifndef BC_ContentObject
+#define BC_ContentObject
+
+#ifndef _ODOBJECT_
+#include "ODObject.idl"
+#endif
+
+
+//==============================================================================
+// Classes defined in this interface
+//==============================================================================
+
+interface  ContentObject;
+interface  ContentFrame;
+
+//==============================================================================
+// Classes used by this interface
+//==============================================================================
+
+interface  ODRect;
+interface  ODPoint;
+interface  ODStorageUnit;
+interface  ODStorageUnitCursor;
+interface  ODFrame;
+interface  ODTransform;
+
+//==============================================================================
+// Constants and type definitions to be emitted
+//==============================================================================
+
+#if defined(__SOMIDL__) && defined(EMIT_CONTOBJ)
+#pragma somemittypes on
+#else
+#pragma somemittypes off
+#endif
+
+const ODULong COBJ_BASECLASS = 0;
+const ODULong COBJ_FRAMECLASS = 1;
+
+const ODULong FRAME_CLOSED = 1;
+const ODULong FRAME_REMOVED = 2;
+const ODULong OBJECT_DELETED = 3;
+const ODULong OBJECT_DRAGGED = 4;
+
+enum BCTransferKind {EXTERNALIZE, INTERNALIZE, CLONE_ALL, CLONE_SELECTED};
+
+enum CObjXformFlags {EXTXFORM_REPLACE, EXTXFORM_PRECOMPOSE, EXTXFORM_POSTCOMPOSE};
+
+// Data structure used in WriteContents for storing kODFrameList kind.
+typedef struct tagFrameListInfo{
+    ODPoint offset;                 // Top-left corner of aggregate bounding box
+    ODStorageUnitCursor cursor;     // kODFrameList value in content property
+} BCFrameListInfo;
+
+// Data structure passed in the WriteContents method used in cloning
+typedef struct tagCloneInfo
+{
+    unsigned long  key;
+    ODPoint  *refPoint;
+    ODFrame  myFrame;
+    BCFrameListInfo *frameListInfo;
+} BCCloneInfo;
+
+
+const ODULong COBJ_RESIZE_TOP    = 0x1000;
+const ODULong COBJ_RESIZE_BOTTOM = 0x0100;
+const ODULong COBJ_RESIZE_LEFT   = 0x0010;
+const ODULong COBJ_RESIZE_RIGHT  = 0x0001;
+
+#pragma somemittypes off
+
+
+//==============================================================================
+// ContentObject
+//==============================================================================
+
+
+interface ContentObject :  ODObject
+{
+
+  attribute ODULong objType;
+
+  attribute ODULong selectionState;
+
+  attribute ODRect boundingRect;
+
+  attribute ODFrame containingFrame;
+
+  readonly attribute ODTransform extTransform;
+
+  attribute ODULong linkStatus;
+
+  void WriteContents(in ODStorageUnit  toSU,
+                     in BCTransferKind writeKind,
+                     in BCCloneInfo   *cloneInfo);
+
+  void ReadContents(in ODStorageUnit  fromSU,
+                    in BCTransferKind  readKind,
+                    in BCCloneInfo    *cloneInfo);
+
+  void DeleteContents(in ODULong type);
+
+  void MoveBy (in ODPoint offset);
+
+  void Resize (in ODPoint endPt,
+               in ODULong resizeFlags);
+
+  void MoveToFront ();
+
+  void MoveToBack ();
+
+  void SetExtTransform (in ODTransform extTransform);
+
+  ContentObject CreateNewView (in ODFrame viewFrame);
+
+  void ChangeExtTransform (in ODTransform xform,
+                                 in ODULong xformFlags);
+
+  void ChangePointBias(in ODPoint point);
+
+  void ChangeRectBias(in ODRect rect);
+
+  void ChangeTransformBias(in ODTransform xform);
+
+  ODULong GetHeight();
+
+#ifdef __SOMIDL__
+  implementation
+  {
+     majorversion = 1; minorversion = 0;
+     functionprefix = ContentObject;
+
+     override:
+        somInit,
+        somUninit;
+
+     releaseorder:
+        _get_objType,
+        _set_objType,
+        _get_selectionState,
+        _set_selectionState,
+        _get_boundingRect,
+        _set_boundingRect,
+        _get_containingFrame,
+        _set_containingFrame,
+        _get_extTransform,
+        _get_linkStatus,
+        _set_linkStatus,
+        WriteContents,
+        ReadContents,
+        DeleteContents,
+        MoveBy,
+        Resize,
+        MoveToFront,
+        MoveToBack,
+        CreateNewView,
+        SetExtTransform,
+        ChangeExtTransform,
+        ChangePointBias,
+        ChangeRectBias,
+        ChangeTransformBias,
+        GetHeight;
+
+
+  };
+#endif //# __SOMIDL__
+};
+
+
+interface ContentFrame :  ContentObject
+{
+
+  attribute ODFrame myFrame;
+
+  void WriteContentsToFrameList(in ODStorageUnit  toSU,
+                     in BCTransferKind writeKind,
+                     in BCCloneInfo   *cloneInfo,
+                     in ODID          frameID);
+
+#ifdef __SOMIDL__
+  implementation
+  {
+     majorversion = 1; minorversion = 0;
+     functionprefix = ContentFrame;
+
+     override:
+        somInit,
+        somUninit,
+        _set_selectionState,
+        _get_boundingRect,
+        _get_containingFrame,
+        _set_containingFrame,
+        _get_linkStatus,
+        _set_linkStatus,
+        WriteContents,
+        ReadContents,
+        DeleteContents,
+        MoveBy,
+        Resize,
+        MoveToFront,
+        MoveToBack,
+        _get_extTransform,
+        SetExtTransform,
+        ChangeExtTransform,
+        CreateNewView,
+        GetHeight;
+
+     releaseorder:
+        _get_myFrame,
+        _set_myFrame,
+        WriteContentsToFrameList;
+
+  };
+#endif //# __SOMIDL__
+};
+
+
+
+#endif // BC_ContentObject (end of file)
+
+

@@ -1,0 +1,267 @@
+/* @(#)Z 1.15 com/src/samples/simple/iodsimpl.idl, odsimplepart, od96os2, odos29712d 97/03/21 17:45:27 (97/01/29 18:29:24) */
+//#====START_GENERATED_PROLOG======================================
+//#
+//#
+//#   COMPONENT_NAME: odsamples
+//#
+//#   CLASSES: none
+//#
+//#   ORIGINS: 82,27
+//#
+//#
+//#   (C) COPYRIGHT International Business Machines Corp. 1995,1996
+//#   All Rights Reserved
+//#   Licensed Materials - Property of IBM
+//#   US Government Users Restricted Rights - Use, duplication or
+//#   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//#   	
+//#   IBM DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING
+//#   ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+//#   PURPOSE. IN NO EVENT SHALL IBM BE LIABLE FOR ANY SPECIAL, INDIRECT OR
+//#   CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF
+//#   USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+//#   OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
+//#   OR PERFORMANCE OF THIS SOFTWARE.
+//#
+//#====END_GENERATED_PROLOG========================================
+//#
+#ifdef __PRIVATE__
+//#
+//#     File:           SimplPrt.idl
+//#
+//#     Contains:       IDL description of Simple Part
+//#
+//#     Written by:     Jason Crawford
+//#
+//#     Copyright:      (c) 1994 by IBM Corp., all rights reserved.
+//#
+#else
+//#     Copyright:      (c) 1996 by IBM Corp., all rights reserved.
+#endif
+
+
+#ifndef _SIMPLPRT_
+#define _SIMPLPRT_
+#ifndef _PART_
+
+#include "Part.idl"
+#endif
+
+typedef somToken HDraw;
+typedef somToken HIconView;
+typedef somToken HThumbView;
+typedef somToken HResModule;
+typedef somToken ViewTypeEnum;
+typedef somToken PartInfoRec;
+
+interface ODWindow;
+interface ODSession;
+interface ODFocusSet;
+interface M_SimplePart;
+interface ODMenuBar;
+interface ODPopup;
+interface IODLinkedList;
+
+interface SimplePart : ODPart
+{
+        void CommonInit(in ODPart partWrapper);
+        void ActivateFrame(in ODFrame frame);
+        ODWindow  MakeWindow(in ODFrame frame);
+#ifdef __PRIVATE__
+        void ActivatingWindow(in ODFrame frame);
+        void DeActivatingWindow(in ODFrame frame);
+#endif
+        void Activate( in ODFacet facet );
+        ODBoolean HandleMenuEvent(in ODFrame focusFrame, in ODEventData event);
+        void InstallMenus();
+        ODMenuBar GetMenuBar();
+        ODPopup GetPopupMenu();
+
+        void SetViewTypeRect(in ViewTypeEnum viewType, inout ODRect rect);
+        void AdjustViewTypeShapes(in ODFrame frame);
+        void LoadIconsFromModule(in string moduleName, in long iconID);
+        void FreeResModule();
+        void CreateIcons();
+        void DrawIcon(in ODFacet facet, in ODShape invalidShape, in ViewTypeEnum viewType);
+        void DrawThumbnail(in ODFacet facet, in ODShape invalidShape);
+        void DrawFrame(in ODFacet facet, in ODShape invalidShape);
+        PartInfoRec * CreateFramePartInfo();
+        void DeleteFramePartInfo(in PartInfoRec *pInfo);
+        IODLinkedList GetDisplayFrames();
+#ifdef __PRIVATE__
+        ODBoolean DisplayPopupMenu(in ODEventData event, in ODFrame frame, in ODFacet facet, in ODEventInfo eventInfo);
+#endif
+        void DisplayInfoDialog(in string catalog,         // Catalog name
+                               in long  msgSet,           // Message set number
+                               in long infoTitle,         // Catalog msg id for dialog box title 
+                               in string defaultInfoTitle,// Default dialog box title
+                               in long infoMsg,           // Catalog msg id for information msg
+                               in string defaultInfoMsg); // Default information msg
+
+        readonly attribute ODPart  fPartWrapper;
+
+#ifdef __PRIVATE__
+        attribute HIconView  hSmallIcon;
+        attribute HIconView  hLargeIcon;
+        attribute HThumbView hThumbnail;
+        attribute HResModule hResModule;
+        attribute ODRect     lastFrameRect;
+        attribute ODBoolean  fInFrameNegotiation;
+        attribute ViewTypeEnum fPrevViewType;
+#endif
+
+#ifdef __SOMIDL__
+        implementation
+        {
+                functionprefix = SimplePart;
+                metaclass     = M_SimplePart;
+                majorversion = 1;
+                minorversion = 0;
+                dllname = "iodsimpl.dll";
+
+        releaseorder:
+               CommonInit,
+               ActivateFrame,
+               ActivatingWindow,
+               DeActivatingWindow,
+               MakeWindow,
+               Activate,
+               HandleMenuEvent,
+               InstallMenus,
+               CreateFramePartInfo,
+               DeleteFramePartInfo,
+               GetDisplayFrames,
+               _get_fPartWrapper,
+               _get_hSmallIcon,
+               _set_hSmallIcon,
+               _get_hLargeIcon,
+               _set_hLargeIcon,
+               _get_hThumbnail,
+               _set_hThumbnail,
+               _get_hResModule,
+               _set_hResModule,
+               SetViewTypeRect,
+               AdjustViewTypeShapes,
+               LoadIconsFromModule,
+               FreeResModule,
+               CreateIcons,
+               DrawIcon,
+               DrawFrame,
+               GetMenuBar,
+               GetPopupMenu,
+               DrawThumbnail,
+               DisplayPopupMenu,
+               DisplayInfoDialog,
+               _get_lastFrameRect,
+               _set_lastFrameRect,
+               _get_fInFrameNegotiation,
+               _set_fInFrameNegotiation,
+               _get_fPrevViewType,
+               _set_fPrevViewType
+               ;
+
+        override:
+               somInit,
+               somUninit,
+               FulfillPromise,
+               DropCompleted,
+               Drop,
+               ContainingPartPropertiesUpdated,
+               AcquireContainingPartProperties,
+               RevealFrame,
+               EmbeddedFrameSpec,
+               CreateEmbeddedFramesIterator,
+               DisplayFrameAdded,
+               DisplayFrameConnected,
+               AttachSourceFrame,
+               DisplayFrameRemoved,
+               DisplayFrameClosed,
+               FrameShapeChanged,
+               ViewTypeChanged,
+               PresentationChanged,
+               SequenceChanged,
+               WritePartInfo,
+               ReadPartInfo,
+               ClonePartInfo,
+               Open,
+               RequestEmbeddedFrame,
+               RemoveEmbeddedFrame,
+               RequestFrameShape,
+               UsedShapeChanged,
+               AdjustBorderShape,
+               FacetAdded,
+               FacetRemoved,
+               CanvasChanged,
+               GeometryChanged,
+               Draw,
+               CanvasUpdated,
+               HighlightChanged,
+               CreateLink,
+               LinkUpdated,
+               RevealLink,
+               EmbeddedFrameUpdated,
+               LinkStatusChanged,
+               BeginRelinquishFocus,
+               CommitRelinquishFocus,
+               AbortRelinquishFocus,
+               FocusAcquired,
+               FocusLost,
+               CloneInto,
+               ExternalizeKinds,
+               Externalize,
+               ChangeKind,
+               HandleEvent,
+               AdjustMenus,
+               UndoAction,
+               RedoAction,
+               DisposeActionState,
+               WriteActionState,
+               ReadActionState,
+               InitPart,
+               InitPartFromStorage,
+               Release,
+               HasExtension,
+               AcquireExtension,
+               ReleaseExtension;
+
+        passthru C_xh = ""
+         "#include \"iodsimpl.h\""
+         ;
+
+         // instance variables
+         ODID                       fWindowID;
+         ODSession                  fSession;
+
+         IODLinkedList              fDisplayFrames;
+
+         ODFocusSet                 fFocusSet;
+         ODTypeToken                fSelectionFocus;
+         ODTypeToken                fMenuFocus;
+         ODTypeToken                fKeyFocus;
+
+         ODMenuBar                  fMenuBar;
+         ODPopup                    fPopup;
+         ODBoolean                  fIsInitialized;
+
+        };
+#endif
+};
+
+interface M_SimplePart : M_ODPart
+{
+
+#ifdef __SOMIDL__
+  implementation
+  {
+    functionprefix = M_SimplePart;
+    override:
+      clsGetODPartHandlerName,
+      clsGetODPartHandlerDisplayName,
+      clsGetODPartKinds,
+      clsGetOLE2ClassId,
+      clsGetWindowsIconFileName;
+  };
+#endif
+};
+#endif  // _SIMPLPRT_
+

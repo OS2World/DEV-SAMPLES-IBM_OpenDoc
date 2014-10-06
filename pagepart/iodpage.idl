@@ -1,0 +1,246 @@
+//#====START_GENERATED_PROLOG======================================
+//#
+//#
+//#   COMPONENT_NAME: odpagepart
+//#
+//#   CLASSES: none
+//#
+//#   ORIGINS: 82,27
+//#
+//#
+//#   (C) COPYRIGHT International Business Machines Corp. 1995,1996
+//#   All Rights Reserved
+//#   Licensed Materials - Property of IBM
+//#   US Government Users Restricted Rights - Use, duplication or
+//#   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//#   	
+//#   IBM DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING
+//#   ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+//#   PURPOSE. IN NO EVENT SHALL IBM BE LIABLE FOR ANY SPECIAL, INDIRECT OR
+//#   CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF
+//#   USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+//#   OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
+//#   OR PERFORMANCE OF THIS SOFTWARE.
+//#
+//#====END_GENERATED_PROLOG========================================
+//#
+
+//   @(#) 1.10 com/src/samples/pagepart/iodpage.idl, odpagepart, od96os2, odos29712d 3/7/97 13:03:22 [3/21/97 17:49:00]
+
+
+#ifndef _PageLayout_
+#define _PageLayout_
+
+#ifndef _CONTAINER_
+#include <iodbasec.idl>
+#endif
+
+
+//======================================================================
+// Classes defined in this interface
+//======================================================================
+
+interface  PageLayout;
+interface  M_PageLayout;
+
+//======================================================================
+// Classes used by this interface
+//======================================================================
+
+interface BaseContainer;
+interface M_BaseContainer;
+interface ContentObject;
+interface PageLayoutPrintExtension;
+interface ODScrollExtension;
+interface ODFrame;
+interface ODShape;
+interface ODMenuBar;
+
+
+//======================================================================
+// Type definitions used by this interface
+//======================================================================
+
+typedef unsigned long  HMODULE;
+typedef unsigned long  HDRAW;
+
+
+//======================================================================
+// PageLayout Implementation
+//======================================================================
+
+interface PageLayout : BaseContainer
+{
+   void DetermineVisiblePages(in ODFrame frame);
+   ODBoolean MaxPagesReached();
+   void InsertPage(in ODFrame frame, in short pageNumber);
+   void RemovePage(in ODFrame frame, in short pageNumber);
+   void ChangePaperSize(in ODFrame frame);
+   short DeterminePageNumberOfEmbed(in ContentObject object);
+   ODBoolean KeepEmbedWithinMargins(in ContentObject object);
+   void SnapToGrid(in ODFrame frame);
+   void FillEntirePage(in ODFrame frame);
+   void MoveEmbedsByOnePage(in short afterPage, in short direction);
+   void ResizeDocShell(in ODFacet facet);
+   void CreateMenuBar();
+   void DrawPage(in HDRAW DrawingSurface, in short pageNumber, in ODBoolean isPrinting, in ODBoolean DrawAdornments);
+
+
+#ifdef __SOMIDL__
+  implementation
+  {
+        dllname = "IODPage.dll";
+        functionprefix = PageLayout;
+        metaclass      = M_PageLayout;
+        majorversion = 1;
+        minorversion = 0;
+
+        override:
+                UpdateContentExtent,
+                CreatePrintExtension,
+                EnablePrinting,
+                SetupPrinting,
+                HandleScrollEvent,
+                HandleMenuEvent,
+                AdjustMenus,
+                FacetAdded,
+                FrameShapeChanged,
+                ChangeNotification,
+                DrawContents,
+                ReadContents,
+                WriteContents,
+                ReadKindInfo,
+                WriteKindInfo,
+                WriteIconToSU,
+                Initialize,
+                ReleaseAll,
+                somInit,
+                somUninit;
+
+        releaseorder:
+                DetermineVisiblePages,
+                MaxPagesReached,
+                InsertPage,
+                RemovePage,
+                ChangePaperSize,
+                DeterminePageNumberOfEmbed,
+                KeepEmbedWithinMargins,
+                SnapToGrid,
+                FillEntirePage,
+                MoveEmbedsByOnePage,
+                ResizeDocShell,
+                CreateMenuBar,
+                DrawPage;
+
+        //=======================================
+        // PageLayout Instance Variables
+        //=======================================
+
+                ODPart                    fPartWrapper;
+
+                PageLayoutPrintExtension  fPrintExt;
+                ODScrollExtension         fScrollExt;
+
+                HMODULE                   fResources;
+                ODMenuBar                 fMenuBar;
+
+                char*                     fCurrentPrinterQueueName;
+
+                short                     fNumberOfPages;
+                long                      fPageWidth;
+                long                      fPageHeight;
+
+                long                      fTotalPageWidth;
+                long                      fTotalPageHeight;
+
+                short                     fFirstVisiblePage;
+                short                     fLastVisiblePage;
+
+                ODBoolean                 fShowHorzRuler;
+                ODBoolean                 fShowVertRuler;
+                ODBoolean                 fShowHorzMargins;
+                ODBoolean                 fShowVertMargins;
+                ODBoolean                 fShowGrid;
+
+                ODBoolean                 fRulerUnits;
+
+                ODBoolean                 fIsTransparent;
+                ODBoolean                 fPrintPageColor;
+
+                short                     fMarginLine;
+                short                     fGridLine;
+
+                short                     fPageUnitMeasure;
+                short                     fMarginsUnitMeasure;
+                short                     fGridUnitMeasure;
+
+                long                      fGridSpacing;
+
+                long                      fPageNumberPosition;
+                long                      fPageNumberStartOn;
+                long                      fPageNumberStartWith;
+
+                char                      fCurrentFont[32];
+
+                long                      fHeaderFooterStartOn;
+                char                      fHeaderText[256];
+                char                      fFooterText[256];
+
+                long                      fLeftPageOffset;
+                long                      fRightPageOffset;
+                long                      fBottomPageOffset;
+                long                      fTopPageOffset;
+
+                long                      fLeftMargin;
+                long                      fRightMargin;
+                long                      fBottomMargin;
+                long                      fTopMargin;
+
+                COLORREF                  fPageColor;
+                COLORREF                  fBackgroundColor;
+                COLORREF                  fPageStringColor;
+                COLORREF                  fRulerColor;
+                COLORREF                  fHorzMarginColor;
+                COLORREF                  fVertMarginColor;
+                COLORREF                  fGridColor;
+
+                double                    fXScaleFactor;
+                double                    fYScaleFactor;
+
+                ODBoolean                 fNeedToResizeDocShell;
+
+                ODBoolean                 fSameColorAsContainer;
+
+                ODShape                   fBackgroundShape;
+                ODShape                   fVisiblePagesShape;
+
+  }; // end implementation section
+
+#endif //__SOMIDL__
+
+}; // end interface definition
+
+
+// ******************************************************************
+
+interface M_PageLayout : M_BaseContainer
+{
+
+#ifdef __SOMIDL__
+  implementation
+  {
+    functionprefix = M_PageLayout;
+
+    override:
+        clsGetODPartHandlerName,
+        clsGetODPartHandlerDisplayName,
+        clsGetODPartKinds,
+        clsGetOLE2ClassId,
+        clsGetWindowsIconFileName;
+  };
+
+#endif  // _SOMIDL__
+};
+
+#endif //_PageLayout_
+
